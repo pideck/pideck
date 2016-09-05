@@ -1,0 +1,47 @@
+#!/bin/sh
+
+# install psmisc
+
+# kill everything first
+killall /usr/bin/jackd
+killall xwax
+killall python
+killall lxpanel
+
+# wait for jack to exit
+#sleep 1
+
+# search music in folders in USB card
+# only show folders with media in them !
+# this does not work
+MUSIC_ROOT=/media/usb
+#PLAYLISTS="-l $MUSIC_ROOT"
+#for P in $MUSIC_ROOT/*; do
+#	if [ -d "$P" ]; then
+#		#P=`echo $P | sed -e 's| |\\\ |g'`
+#		PLAYLISTS="-l $P $PLAYLISTS"
+#	fi
+#done
+
+PLAYLISTS="-l $MUSIC_ROOT"
+
+# start jack
+jackd -R -T -dalsa -dhw:0,0 -r44100 -p128 -n2 -S &
+sleep 1
+
+# start touchscreen buttons
+python touchscreen_controls &
+
+sleep 1
+
+
+# start xwax
+xwax -k -q 40 -g 800x430 --no-decor -j deck1 $PLAYLISTS &
+
+sleep 2
+
+# connect jack ports
+jack_connect system:capture_1 xwax:deck1_timecode_L
+jack_connect system:capture_2 xwax:deck1_timecode_R
+jack_connect system:playback_1 xwax:deck1_playback_L
+jack_connect system:playback_2 xwax:deck1_playback_R

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=XWax
+Comment=XWax
+Exec=/home/pi/scripts/start_xwax
+Icon=application.png
+Terminal=false

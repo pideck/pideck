@@ -1,0 +1,28 @@
+Source: pideck
+Section: sound
+Priority: extra
+Maintainer: Daniel James <daniel@64studio.com>
+Uploaders:
+ Daniel James <daniel@64studio.com>,
+ Chris Obbard <chris@64studio.com>
+Build-Depends:
+Standards-Version: 3.9.8
+Homepage: http://www.pideck.co.uk/
+Vcs-Git: https://github.com/pideck/pideck.git
+Vcs-Browser: https://github.com/pideck/pideck
+
+Package: pideck
+Architecture: any
+Depends:
+ xwax,
+ python,
+ python-gtk2,
+ python-xlib,
+ psmisc,
+ wmctrl,
+ ${misc:Depends},
+ ${shlibs:Depends}
+Recommends:
+Suggests:
+Description: open-source DVS software & touchscreen interface
+ Go nuts!
