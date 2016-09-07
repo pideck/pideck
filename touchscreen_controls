@@ -84,6 +84,10 @@ def make_window():
 	btn.connect("clicked", fake_press_key, "Down")
 	box.add(btn)
 
+        btn = gtk.Button("RESCAN")
+        btn.connect("clicked", fake_press_key, "Control_L")
+        box.add(btn)
+
 	win.add(box)
 
 	win.show_all()
