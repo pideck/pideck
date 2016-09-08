@@ -7,7 +7,7 @@ Uploaders:
  Chris Obbard <chris@64studio.com>
 Build-Depends:
 Standards-Version: 3.9.8
-Homepage: http://www.pideck.co.uk/
+Homepage: http://www.pideck.com/
 Vcs-Git: https://github.com/pideck/pideck.git
 Vcs-Browser: https://github.com/pideck/pideck
 
@@ -15,7 +15,6 @@ Package: pideck
 Architecture: any
 Depends:
  xwax,
- python,
  python-gtk2,
  python-xlib,
  psmisc,
@@ -25,4 +24,6 @@ Depends:
 Recommends:
 Suggests:
 Description: open-source DVS software & touchscreen interface
- Go nuts!
+ This is a customisation package for the PiDeck project. It installs helper
+ scripts and several packages required for a digital vinyl system as
+ dependencies. Go nuts!
