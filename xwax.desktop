@@ -1,8 +1,0 @@
-[Desktop Entry]
-Type=Application
-Encoding=UTF-8
-Name=XWax
-Comment=XWax
-Exec=/usr/share/pideck/start_xwax
-Icon=application.png
-Terminal=false
