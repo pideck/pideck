@@ -14,11 +14,12 @@ Vcs-Browser: https://github.com/pideck/pideck
 Package: pideck
 Architecture: any
 Depends:
- xwax,
+ jackd,
+ psmisc,
  python-gtk2,
  python-xlib,
- psmisc,
  wmctrl,
+ xwax,
  ${misc:Depends},
  ${shlibs:Depends}
 Recommends:
