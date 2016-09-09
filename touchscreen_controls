@@ -1,9 +1,10 @@
 #!/usr/bin/env python
+# ---------------------------------------------------------------------------
+# Touchscreen controller
 #
-# Python XWax Touchscreen controller
+#  This program emulates keyboard key presses using a touchscreen.
 #
-# sudo apt-get install psmisc python-gtk2 python-xlib wmctrl
-#
+# ---------------------------------------------------------------------------
 
 import pygtk
 pygtk.require('2.0')
