@@ -28,7 +28,7 @@ jackd -R -T -dalsa -dhw:0,0 -r44100 -p128 -n2 -S &
 sleep 1
 
 # start touchscreen buttons
-python touchscreen_controls &
+python /usr/share/pideck/touchscreen_controls &
 
 sleep 1
 
