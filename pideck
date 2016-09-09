@@ -30,7 +30,7 @@ MUSIC_ROOT=/media
 PLAYLISTS="-l $MUSIC_ROOT"
 
 # start jack
-jackd -R -T -dalsa -dhw:0,0 -r44100 -p128 -n2 -S &
+jackd -T -dalsa -dhw:0,0 -r44100 -p128 -n2 -S &
 sleep 1
 
 # start touchscreen buttons
