@@ -6,4 +6,4 @@ Comment=Go nuts!
 Exec=/usr/share/pideck/start_xwax
 Icon=application.png
 Terminal=false
-Categories=Audio;Player;
+Categories=AudioVideo;Audio;Player;
