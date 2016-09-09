@@ -6,6 +6,9 @@
 #
 # ---------------------------------------------------------------------------
 
+# where to search for music
+PLAYLISTS="-l /media"
+
 # kill everything first
 killall xwax
 killall /usr/bin/jackd
@@ -14,20 +17,6 @@ killall lxpanel
 
 # wait for jack to exit
 #sleep 1
-
-MUSIC_ROOT=/media
-
-# search music in folders in USB card
-# only show folders with media in them !
-# this does not work
-#for P in $MUSIC_ROOT/*; do
-#	if [ -d "$P" ]; then
-#		#P=`echo $P | sed -e 's| |\\\ |g'`
-#		PLAYLISTS="-l $P $PLAYLISTS"
-#	fi
-#done
-
-PLAYLISTS="-l $MUSIC_ROOT"
 
 # start jack
 jackd -T -dalsa -dhw:0,0 -r44100 -p128 -n2 -S &
