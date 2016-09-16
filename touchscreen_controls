@@ -20,38 +20,38 @@ from Xlib.display import Display
 from Xlib.protocol import event
 
 def fake_press_key(dunno, key_to_press):
-	os.system("wmctrl -a xwax")
-	display = Display()
-	#screen = display.screen()
-	focus_window = display.get_input_focus().focus
-	keycode = display.keysym_to_keycode(string_to_keysym(key_to_press))
+    os.system("wmctrl -a xwax")
+    display = Display()
+    #screen = display.screen()
+    focus_window = display.get_input_focus().focus
+    keycode = display.keysym_to_keycode(string_to_keysym(key_to_press))
 
-	key_event = event.KeyPress(
-	        time=int(time.time()),
-	        root=display.screen().root,
-	        window=focus_window,
-	        same_screen=0, child=NONE,
-	        root_x=0, root_y=0, event_x=0, event_y=0,
-	        state=0,
-        	detail=keycode
-	)
+    key_event = event.KeyPress(
+            time=int(time.time()),
+            root=display.screen().root,
+            window=focus_window,
+            same_screen=0, child=NONE,
+            root_x=0, root_y=0, event_x=0, event_y=0,
+            state=0,
+            detail=keycode
+    )
 
-	focus_window.send_event(key_event)
-	key_event = event.KeyRelease(
-	        time=int(time.time()),
-	        root=display.screen().root,
-	        window=focus_window,
-	        same_screen=0, child=NONE,
-	        root_x=0, root_y=0, event_x=0, event_y=0,
-	        state=0,
-        	detail=keycode
-	)
+    focus_window.send_event(key_event)
+    key_event = event.KeyRelease(
+            time=int(time.time()),
+            root=display.screen().root,
+            window=focus_window,
+            same_screen=0, child=NONE,
+            root_x=0, root_y=0, event_x=0, event_y=0,
+            state=0,
+            detail=keycode
+    )
 
-	focus_window.send_event(key_event)
+    focus_window.send_event(key_event)
 
-	display.sync()
+    display.sync()
 
-	os.system("wmctrl -a touchscreen")
+    os.system("wmctrl -a touchscreen")
 
 def on_key_press_event(widget, event):
     keyname = gtk.gdk.keyval_name(event.keyval)
@@ -66,7 +66,7 @@ def make_window():
     win.move(0, 0)
     win.add_events(gtk.gdk.KEY_PRESS_MASK)
     win.connect("key-press-event", on_key_press_event)
-	win.connect("destroy", gtk.main_quit)
+    win.connect("destroy", gtk.main_quit)
 
     box = gtk.HButtonBox()
 
