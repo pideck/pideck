@@ -1,3 +1,4 @@
 pideck usr/share/pideck
 touchscreen_controls usr/share/pideck
+soundcard.state usr/share/pideck
 pideck.desktop usr/share/applications

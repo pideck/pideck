@@ -1,0 +1,5 @@
+#!/bin/sh
+
+
+# set soundcard to default state
+aslactl restore --file /usr/share/pideck/soundcard.state
