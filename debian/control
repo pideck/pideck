@@ -17,7 +17,6 @@ Depends:
  alsa-utils,
  jackd,
  psmisc,
- python,
  python-gtk2,
  python-xlib,
  wmctrl,
