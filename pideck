@@ -10,13 +10,11 @@
 PLAYLISTS="-l /media"
 
 # kill everything first
-killall xwax
-killall /usr/bin/jackd
-killall python
-killall lxpanel
-
-# wait for jack to exit
-#sleep 1
+killall --wait xwax
+killall --wait jackd
+killall --wait /usr/bin/jackd
+killall --wait python
+killall --wait lxpanel
 
 # start jack
 jackd -R -T -dalsa -dhw:0,0 -r44100 -p128 -n2 -S &
