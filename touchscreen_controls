@@ -54,53 +54,52 @@ def fake_press_key(dunno, key_to_press):
 	os.system("wmctrl -a touchscreen")
 
 def on_key_press_event(widget, event):
-        keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == "F10":
-                os.system("lxterminal &")
+    keyname = gtk.gdk.keyval_name(event.keyval)
+    if keyname == "F10":
+        os.system("lxterminal &")
 
 def make_window():
-	win = gtk.Window()
-	win.set_title("Touchscreen Controls")
-	win.set_decorated(False)
-	win.set_default_size(800, 50)
-	win.move(0, 0)
+    win = gtk.Window()
+    win.set_title("Touchscreen Controls")
+    win.set_decorated(False)
+    win.set_default_size(800, 50)
+    win.move(0, 0)
     win.add_events(gtk.gdk.KEY_PRESS_MASK)
     win.connect("key-press-event", on_key_press_event)
 	win.connect("destroy", gtk.main_quit)
 
-	box = gtk.HButtonBox()
+    box = gtk.HButtonBox()
 
-	btn = gtk.Button("LOAD")
-	btn.connect("clicked", fake_press_key, "F1")
-	btn.set_size_request(120, 50)
-	box.add(btn)
+    btn = gtk.Button("LOAD")
+    btn.connect("clicked", fake_press_key, "F1")
+    btn.set_size_request(120, 50)
+    box.add(btn)
 
-	btn = gtk.Button("CUE1")
-	btn.connect("clicked", fake_press_key, "F2")
-	box.add(btn)
+    btn = gtk.Button("CUE1")
+    btn.connect("clicked", fake_press_key, "F2")
+    box.add(btn)
 
-	btn = gtk.Button("TIMECODE")
-	btn.connect("clicked", fake_press_key, "F3")
-	box.add(btn)
+    btn = gtk.Button("TIMECODE")
+    btn.connect("clicked", fake_press_key, "F3")
+    box.add(btn)
 
-	btn = gtk.Button("UP")
-	btn.connect("clicked", fake_press_key, "Up")
-	box.add(btn)
+    btn = gtk.Button("UP")
+    btn.connect("clicked", fake_press_key, "Up")
+    box.add(btn)
 
-	btn = gtk.Button("DOWN")
-	btn.connect("clicked", fake_press_key, "Down")
-	box.add(btn)
+    btn = gtk.Button("DOWN")
+    btn.connect("clicked", fake_press_key, "Down")
+    box.add(btn)
 
-        btn = gtk.Button("RESCAN")
-        btn.connect("clicked", fake_press_key, "Control_L")
-        box.add(btn)
+    btn = gtk.Button("RESCAN")
+    btn.connect("clicked", fake_press_key, "Control_L")
+    box.add(btn)
 
-	win.add(box)
+    win.add(box)
 
-	win.show_all()
+    win.show_all()
 
-	gtk.main()
+    gtk.main()
 
 display = Display()
-
 make_window()
