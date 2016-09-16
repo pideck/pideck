@@ -3,3 +3,6 @@
 
 # set soundcard to default state
 aslactl restore --file /usr/share/pideck/soundcard.state
+
+# remove usb symlink
+rm /media/usb

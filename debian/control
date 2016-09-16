@@ -19,6 +19,7 @@ Depends:
  psmisc,
  python-gtk2,
  python-xlib,
+ usbmount,
  wmctrl,
  xwax,
  ${misc:Depends},
