@@ -53,6 +53,10 @@ def fake_press_key(dunno, key_to_press):
 
 	os.system("wmctrl -a touchscreen")
 
+def on_key_press_event(widget, event):
+        keyname = gtk.gdk.keyval_name(event.keyval)
+        if keyname == "F10":
+                os.system("lxterminal &")
 
 def make_window():
 	win = gtk.Window()
@@ -60,6 +64,8 @@ def make_window():
 	win.set_decorated(False)
 	win.set_default_size(800, 50)
 	win.move(0, 0)
+    win.add_events(gtk.gdk.KEY_PRESS_MASK)
+    win.connect("key-press-event", on_key_press_event)
 	win.connect("destroy", gtk.main_quit)
 
 	box = gtk.HButtonBox()
