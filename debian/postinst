@@ -6,3 +6,9 @@ aslactl restore --file /usr/share/pideck/soundcard.state
 
 # remove usb symlink
 rm /media/usb
+
+# make the software autostart
+# TODO: this relys on the username being pi, and their home dir being in the standard place
+mkdir -p /home/pi/.config/autostart
+chown pi:pi /home/pi/.config/autostart
+ln -s /usr/share/applications/pideck.desktop /home/pi/.config/autostart/pideck.desktop
