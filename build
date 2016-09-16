@@ -4,10 +4,12 @@
 #
 #
 # cross compile instructions:
-#
 # dpkg-buildpackage -aarmhf
 # scp ../pideck_0.1-1_armhf.deb pi@pideck:/home/pi
 #
+# on host:
+# sudo apt-get purge pideck -y
+# sudo dpkg -i ~/pideck_0.1-1_armhf.deb
 
 sudo apt-get purge pideck -y
 cd ~/pideck
