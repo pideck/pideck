@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# build script
+#
+sudo apt-get purge pideck -y
+cd ~/pideck
+rm -rf pideck
+mkdir pideck; cd pideck
+git clone https://github.com/pideck/pideck.git
+cd pideck
+dpkg-buildpackage
+cd ..
+sudo dpkg -i pideck_0.1-1_armhf.deb
