@@ -15,3 +15,6 @@ sed -i 's/MOUNTOPTIONS="sync,noexec,nodev,noatime,nodiratime"/MOUNTOPTIONS="ro,n
 mkdir -p /home/pi/.config/autostart
 chown pi:pi /home/pi/.config/autostart
 ln -s /usr/share/applications/pideck.desktop /home/pi/.config/autostart/pideck.desktop
+
+# the script will always succeed
+exit 0
