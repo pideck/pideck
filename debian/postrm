@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# don't autostart the software
+# TODO: this relys on the username being pi, and their home dir being in the standard place
+rm /home/pi/.config/autostart/pideck.desktop
+
+# the script will always succeed
+exit 0
