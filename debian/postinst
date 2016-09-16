@@ -2,15 +2,13 @@
 
 
 # set soundcard to default state
-aslactl restore --file /usr/share/pideck/soundcard.state
+alaactl restore --file /usr/share/pideck/soundcard.state
 
 # remove usb symlink
 rm /media/usb
 
 # mount usb readonly
 sed -i 's/MOUNTOPTIONS="sync,noexec,nodev,noatime,nodiratime"/MOUNTOPTIONS="ro,noexec,nodev,noatime,nodiratime"/g' /etc/usbmount/usbmount.conf
-
-
 
 # make the software autostart
 # TODO: this relys on the username being pi, and their home dir being in the standard place
