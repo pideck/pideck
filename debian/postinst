@@ -1,14 +1,12 @@
 #!/bin/sh
 
-
-# set soundcard to default state
-alsactl restore --file /usr/share/pideck/soundcard.state
+# start soundcard-setup service
+systemctl enable soundcard-setup.service
 
 # remove usbmount symlink only if it exists
 if [ -L /media/usb ] ; then
     rm /media/usb
 fi
-
 
 # mount usb readonly
 sed -i 's/MOUNTOPTIONS="sync,noexec,nodev,noatime,nodiratime"/MOUNTOPTIONS="ro,noexec,nodev,noatime,nodiratime"/g' /etc/usbmount/usbmount.conf

@@ -1,0 +1,9 @@
+[Unit]
+Description=Setup soundcard
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/alsactl restore --file /usr/share/pideck/soundcard.state
+
+[Install]
+WantedBy=multi-user.target
