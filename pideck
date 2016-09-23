@@ -22,12 +22,10 @@ sleep 1
 
 # start touchscreen buttons
 python /usr/share/pideck/touchscreen_controls &
-
 sleep 1
 
 # start xwax
 xwax -k -q 40 -g 800x430 --no-decor -j deck1 $PLAYLISTS &
-
 sleep 2
 
 # connect jack ports
