@@ -9,6 +9,10 @@
 # where to search for music
 PLAYLISTS="-l /media"
 
+# the audio backend to use
+# "alsa" or "jackd"
+BACKEND="alsa"
+
 # kill everything first
 killall --wait xwax
 killall --wait jackd
@@ -16,20 +20,27 @@ killall --wait /usr/bin/jackd
 killall --wait python
 killall --wait lxpanel
 
-# start jack
-jackd -R -T -dalsa -dhw:0,0 -r44100 -p128 -n2 -S &
-sleep 1
+if [ $BACKEND = "jackd" ]; then
+    # start jack
+    jackd -R -T -dalsa -dhw:0,0 -r44100 -p128 -n2 -S &
+    sleep 1
+fi
 
 # start touchscreen buttons
 python /usr/share/pideck/touchscreen_controls &
 sleep 1
 
-# start xwax
-xwax -k -q 40 -g 800x430 --no-decor -j deck1 $PLAYLISTS &
-sleep 2
+if [ $BACKEND = "jackd" ]; then
+    # start xwax
+    xwax -k -q 40 -g 800x430 --no-decor -j deck1 $PLAYLISTS &
+    sleep 2
 
-# connect jack ports
-jack_connect system:capture_1 xwax:deck1_timecode_L
-jack_connect system:capture_2 xwax:deck1_timecode_R
-jack_connect system:playback_1 xwax:deck1_playback_L
-jack_connect system:playback_2 xwax:deck1_playback_R
+    # connect jack ports
+    jack_connect system:capture_1 xwax:deck1_timecode_L
+    jack_connect system:capture_2 xwax:deck1_timecode_R
+    jack_connect system:playback_1 xwax:deck1_playback_L
+    jack_connect system:playback_2 xwax:deck1_playback_R
+else
+    # start xwax
+    xwax -k -q 40 -g 800x430 --no-decor -a hw:0 -m 20 $PLAYLISTS &
+fi
