@@ -2,4 +2,4 @@ pideck usr/share/pideck
 touchscreen_controls usr/share/pideck
 soundcard.state usr/share/pideck
 pideck.desktop usr/share/applications
-soundcard-setup.service etc/systemd/system/soundcard-setup.service
+soundcard-setup.service etc/systemd/system
