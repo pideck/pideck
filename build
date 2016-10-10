@@ -17,6 +17,6 @@ rm -rf pideck
 mkdir pideck; cd pideck
 git clone https://github.com/pideck/pideck.git
 cd pideck
-dpkg-buildpackage
+dpkg-buildpackage -I.git -I.gitignore -aarmhf
 cd ..
 sudo dpkg -i pideck_0.1-1_armhf.deb

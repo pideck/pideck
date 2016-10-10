@@ -12,7 +12,7 @@ fi
 sed -i 's/MOUNTOPTIONS="sync,noexec,nodev,noatime,nodiratime"/MOUNTOPTIONS="ro,noexec,nodev,noatime,nodiratime"/g' /etc/usbmount/usbmount.conf
 
 # make the software autostart
-# TODO: this relys on the username being pi, and their home dir being in the standard place
+# TODO: this relies on the username being pi, and their home dir being in the standard place
 if [ ! -L /home/pi/.config/autostart/pideck.desktop ] ; then
     mkdir -p /home/pi/.config/autostart
     chown pi:pi /home/pi/.config/autostart

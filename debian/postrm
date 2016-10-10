@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # don't autostart the software
-# TODO: this relys on the username being pi, and their home dir being in the standard place
+# TODO: this relies on the username being pi, and their home dir being in the standard place
 if [ -L /home/pi/.config/autostart/pideck.desktop ] ; then
     rm /home/pi/.config/autostart/pideck.desktop
 fi
