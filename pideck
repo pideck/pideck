@@ -22,7 +22,7 @@ killall --wait lxpanel
 
 if [ $BACKEND = "jackd" ]; then
     # start jack
-    jackd -R -T -dalsa -dhw:0,0 -r44100 -p128 -n2 -S &
+    jackd -R -T -dalsa -dhw:0,0 -r48000 -p128 -n2 -S &
     sleep 1
 fi
 
@@ -42,5 +42,5 @@ if [ $BACKEND = "jackd" ]; then
     jack_connect system:playback_2 xwax:deck1_playback_R
 else
     # start xwax
-    xwax -k -q 40 -g 800x430 --no-decor -a hw:0 -m 20 $PLAYLISTS &
+    xwax -k -q 89 -g 800x430 --no-decor -m 16 -r 48000 -a hw:0 $PLAYLISTS &
 fi
