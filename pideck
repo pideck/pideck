@@ -20,6 +20,34 @@ killall --wait /usr/bin/jackd
 killall --wait python
 killall --wait lxpanel
 
+# check we have a soundcard installed
+if cat /proc/asound/cards | grep -q 'no soundcards'; then
+    echo "NO SOUNDCARDS FOUND"
+    python /usr/share/pideck/error_messages no_soundcards_found
+    /usr/share/pideck/pideck &
+    exit
+fi
+
+# parse soundcard file
+CARDS_LINE_1=`sed '1!d' /proc/asound/cards`
+CARDS_LINE_2=`sed '2!d' /proc/asound/cards`
+# get the number of the soundcard e.g hw:0 would be 0
+CARD_NUM=`echo $CARDS_LINE_1 | grep -o "[0-9]" | head -1`
+
+# set parameters based on the soundcard name
+if echo $CARDS_LINE_2 | grep -q "audioinjector-pi-soundcard"; then
+    echo "FOUND AUDIOINJECTOR"
+    BUFFER=16
+    CARD=hw:$CARD_NUM
+elif echo $CARDS_LINE_2 | grep -q "BurrBrown from Texas Instruments USB AUDIO  CODEC"; then
+    echo "FOUND USB SOUND CARD"
+    BUFFER=3
+    CARD=hw:$CARD_NUM
+else
+    BUFFER=10
+    CARD=hw:$CARD_NUM
+fi
+
 if [ $BACKEND = "jackd" ]; then
     # start jack
     jackd -R -T -dalsa -dhw:0,0 -r48000 -p128 -n2 -S &
@@ -42,5 +70,5 @@ if [ $BACKEND = "jackd" ]; then
     jack_connect system:playback_2 xwax:deck1_playback_R
 else
     # start xwax
-    xwax -k -q 89 -g 800x430 --no-decor -m 16 -r 48000 -a hw:0 $PLAYLISTS &
+    xwax -k -q 89 -g 800x430 --no-decor -m $BUFFER -r 48000 -a $CARD $PLAYLISTS &
 fi
