@@ -36,15 +36,16 @@ CARD_NUM=`echo $CARDS_LINE_1 | grep -o "[0-9]" | head -1`
 
 # set parameters based on the soundcard name
 if echo $CARDS_LINE_2 | grep -q "audioinjector-pi-soundcard"; then
-    echo "FOUND AUDIOINJECTOR"
+    echo "FOUND AUDIOINJECTOR (WM8731 Codec)"
     BUFFER=16
     CARD=hw:$CARD_NUM
 elif echo $CARDS_LINE_2 | grep -q "BurrBrown from Texas Instruments USB AUDIO  CODEC"; then
-    echo "FOUND USB SOUND CARD"
+    echo "FOUND USB SOUND CARD (PCM2900 Codec)"
     BUFFER=3
     CARD=hw:$CARD_NUM
 else
-    BUFFER=10
+    # set default settings
+    BUFFER=8
     CARD=hw:$CARD_NUM
 fi
 
