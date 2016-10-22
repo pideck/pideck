@@ -1,0 +1,43 @@
+#!/bin/sh
+# ---------------------------------------------------------------------------
+# usbmount
+#
+#  This program handles mounting usb sticks
+#
+# ---------------------------------------------------------------------------
+# 
+#
+# preinst file to be the same as usbmount but no link
+#
+#
+#
+
+MOUNTOPTIONS=ro,noexec,nodev,noatime,nodiratime,user,umask=0000
+
+
+xwax_rescan() {
+        env DISPLAY=:0 XAUTHORITY=/home/pi/.Xauthority /usr/share/pideck/xwax_rescan
+}
+
+if [ "$1" = add ]; then
+        logger "add usb stick $DEVNAME"
+
+        for NUM in 0 1 2 3 4 5 6 7; do
+                if [ -d "/media/usb$NUM" ] && ! grep -q "^[^ ][^ ]*  */media/usb$NUM " /proc/mounts; then
+                        #mount $DEVNAME /media/usb$NUM
+                        #logger "mounted $DEVNAME to /media/usb$NUM"
+
+                        if nice -n 19 ionice -c3 mount $DEVNAME /media/usb$NUM -o $MOUNTOPTIONS; then
+                        #if mount $DEVNAME /media/usb$NUM -o $MOUNTOPTIONS; then
+                                logger "mounted $DEVNAME to /media/usb$NUM"
+                                xwax_rescan
+                                exit 0
+                        fi
+                fi
+        done
+
+elif [ "$1" = remove ]; then
+        logger "remove usb stick $DEVNAME"
+        umount -l $DEVNAME
+        xwax_rescan
+fi

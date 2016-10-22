@@ -1,7 +1,8 @@
-pideck (pideck-0.2) UNRELEASED; urgency=medium
+pideck (0.2-1) UNRELEASED; urgency=medium
 
   * Check soundcard exists on startup
-  * Auto-select soundcard
+  * Auto-select soundcard on launch
+  * Auto-mount USB drives
 
  -- Chris Obbard <chris@64studio.com>  Sat, 15 Oct 2016 11:18:52 +0100
 

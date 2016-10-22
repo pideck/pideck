@@ -1,5 +1,9 @@
 pideck usr/share/pideck
 touchscreen_controls usr/share/pideck
 soundcard.state usr/share/pideck
+usbmount usr/share/pideck
+xwax_rescan usr/share/pideck
+error_messages usr/share/pideck
 pideck.desktop usr/share/applications
 soundcard-setup.service etc/systemd/system
+usbmount.rules lib/udev/rules.d

@@ -3,14 +3,6 @@
 # start soundcard-setup service
 systemctl enable soundcard-setup.service
 
-# remove usbmount symlink only if it exists
-if [ -L /media/usb ] ; then
-    rm /media/usb
-fi
-
-# mount usb readonly
-sed -i 's/MOUNTOPTIONS="sync,noexec,nodev,noatime,nodiratime"/MOUNTOPTIONS="ro,noexec,nodev,noatime,nodiratime"/g' /etc/usbmount/usbmount.conf
-
 # make the software autostart
 # TODO: this relies on the username being pi, and their home dir being in the standard place
 if [ ! -L /home/pi/.config/autostart/pideck.desktop ] ; then
@@ -18,6 +10,15 @@ if [ ! -L /home/pi/.config/autostart/pideck.desktop ] ; then
     chown pi:pi /home/pi/.config/autostart
     ln -s /usr/share/applications/pideck.desktop /home/pi/.config/autostart/pideck.desktop
 fi
+
+# reload the USB mounting udev rules
+udevadm control --reload-rules
+
+# make the USB mounting directories
+mkdir /media 2> /dev/null || :
+for i in 0 1 2 3 4 5 6 7; do
+    mkdir /media/usb$i 2> /dev/null || :
+done
 
 # the script will always succeed
 exit 0

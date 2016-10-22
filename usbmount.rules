@@ -1,0 +1,10 @@
+# Rules for pideck usbmounting
+
+#KERNEL=="sd*", DRIVERS=="sbp2",                ACTION=="add",  RUN+="/usr/share/usbmount/usbmount add"
+#KERNEL=="sd*", SUBSYSTEMS=="usb",      ACTION=="add",  RUN+="/usr/share/usbmount/usbmount add"
+#KERNEL=="ub*", SUBSYSTEMS=="usb",      ACTION=="add",  RUN+="/usr/share/usbmount/usbmount add"
+#KERNEL=="sd*",                         ACTION=="remove",       RUN+="/usr/share/usbmount/usbmount remove"
+#KERNEL=="ub*", ACTION=="remove", RUN+="/usr/share/usbmount/usbmount remove"
+
+KERNEL=="sd*", SUBSYSTEMS=="usb",       ACTION=="add",          RUN+="/usr/share/pideck/usbmount add"
+KERNEL=="sd*",                          ACTION=="remove",       RUN+="/usr/share/pideck/usbmount remove"
