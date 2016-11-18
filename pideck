@@ -46,7 +46,7 @@ elif echo $CARDS_LINE_2 | grep -q "BurrBrown from Texas Instruments USB AUDIO  C
 else
     # set default settings
     BUFFER=8
-    CARD=hw:$CARD_NUM
+    CARD=plughw:$CARD_NUM
 fi
 
 if [ $BACKEND = "jackd" ]; then
