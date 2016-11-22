@@ -25,7 +25,7 @@ Depends:
  ${shlibs:Depends}
 Recommends:
 Suggests:
-Description: open-source DVS software & touchscreen interface
+Description: Setup scripts and touchscreen interface for PiDeck DVS
  This is a customisation package for the PiDeck project. It installs helper
  scripts and several packages required for a digital vinyl system as
  dependencies. Go nuts!
