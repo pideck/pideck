@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # ---------------------------------------------------------------------------
 # Pideck
 #
@@ -6,12 +6,34 @@
 #
 # ---------------------------------------------------------------------------
 
-# where to search for music
-PLAYLISTS="-l /media"
 
-# the audio backend to use
-# "alsa" or "jackd"
+# ----------------------------- CONFIG -------------------------------------
+
+# where to search for music
+PLAYLISTS="-l /media/"
+
+# the audio backend to use "alsa" or "jackd"
 BACKEND="alsa"
+
+# --- Supported soundcards ---
+
+# Audio injector 16ms buffer
+SUP_1="audioinjector-pi-soundcard"
+BUF_1=16
+
+#American Audio Genie 2 3ms buffer
+SUP_2="BurrBrown from Texas Instruments USB AUDIO  CODEC"
+BUF_2=3
+
+#miditech phonoface 4ms buffer
+SUP_3="Burr-Brown from TI USB Audio CODEC"
+BUF_3=4
+
+#berhinger ufo202
+#SUP_4=""
+
+#------------------------------------------------------------------------------
+
 
 # kill everything first
 killall --wait xwax
@@ -19,6 +41,7 @@ killall --wait jackd
 killall --wait /usr/bin/jackd
 killall --wait python
 killall --wait lxpanel
+echo "             "
 
 # check we have a soundcard installed
 if cat /proc/asound/cards | grep -q 'no soundcards'; then
@@ -29,25 +52,114 @@ if cat /proc/asound/cards | grep -q 'no soundcards'; then
 fi
 
 # parse soundcard file
-CARDS_LINE_1=`sed '1!d' /proc/asound/cards`
-CARDS_LINE_2=`sed '2!d' /proc/asound/cards`
-# get the number of the soundcard e.g hw:0 would be 0
-CARD_NUM=`echo $CARDS_LINE_1 | grep -o "[0-9]" | head -1`
+CARDS_LINE_1=`sed '1,2!d' /proc/asound/cards`
+CARDS_LINE_2=`sed '3,4!d' /proc/asound/cards`
 
-# set parameters based on the soundcard name
-if echo $CARDS_LINE_2 | grep -q "audioinjector-pi-soundcard"; then
+echo "Available sound cards : "
+echo $CARDS_LINE_1
+echo $CARDS_LINE_2 
+echo "        "
+
+
+#detect supported cards
+
+XCARD_NUM=0
+
+if ( echo $CARDS_LINE_2 | grep -q "$SUP_1" ) || ( echo $CARDS_LINE_1 | grep -q "$SUP_1" ); then
+
     echo "FOUND AUDIOINJECTOR (WM8731 Codec)"
-    BUFFER=16
-    CARD=hw:$CARD_NUM
-elif echo $CARDS_LINE_2 | grep -q "BurrBrown from Texas Instruments USB AUDIO  CODEC"; then
-    echo "FOUND USB SOUND CARD (PCM2900 Codec)"
-    BUFFER=3
-    CARD=hw:$CARD_NUM
-else
-    # set default settings
-    BUFFER=8
-    CARD=plughw:$CARD_NUM
+
+      if echo $CARDS_LINE_1 | grep -q "$SUP_1"; then
+        CARD_NUM=`echo $CARDS_LINE_1 | grep -o "[0-9]" | head -1`
+      else 
+        CARD_NUM=`echo $CARDS_LINE_2 | grep -o "[0-9]" | head -1`
+      fi
+    
+    ((XCARD_NUM=XCARD_NUM+1))
+    XWAX_CARD_1=$CARD_NUM
+    XCARD=hw:$CARD_NUM
+    BUFFER=$BUF_1   
+
 fi
+
+if ( echo $CARDS_LINE_2 | grep -q "$SUP_2" ) || ( echo $CARDS_LINE_1 | grep -q "$SUP_2" ); then
+   
+ echo "FOUND AMERICAN AUDIO GENIE 2 USB Audio CODEC"
+
+      if echo $CARDS_LINE_1 | grep -q "$SUP_2"; then
+        CARD_NUM=`echo $CARDS_LINE_1 | grep -o "[0-9]" | head -1`
+      else 
+        CARD_NUM=`echo $CARDS_LINE_2 | grep -o "[0-9]" | head -1`
+      fi
+ 
+    ((XCARD_NUM=XCARD_NUM+1))
+    XWAX_CARD_2=$CARD_NUM
+    XCARD=hw:$CARD_NUM
+    BUFFER=$BUF_2  
+
+fi
+
+if ( echo $CARDS_LINE_2 | grep -q "$SUP_3" ) || ( echo $CARDS_LINE_1 | grep -q "$SUP_3" ); then
+
+    echo "FOUND MIDITECH PHONOFACE USB Audio CODEC"
+
+      if echo $CARDS_LINE_1 | grep -q "$SUP_3"; then
+        CARD_NUM=`echo $CARDS_LINE_1 | grep -o "[0-9]" | head -1`
+      else 
+        CARD_NUM=`echo $CARDS_LINE_2 | grep -o "[0-9]" | head -1`
+      fi
+   
+   ((XCARD_NUM=XCARD_NUM+1))
+   XWAX_CARD_3=$CARD_NUM
+   XCARD=hw:$CARD_NUM
+   BUFFER=$BUF_3
+
+fi
+
+# if no supported cards found select usb audio or default hw:0 with 8ms buffer
+
+if (($XCARD_NUM < 1)); then
+     echo " no supported cards found!"
+
+     if echo $CARDS_LINE_1 | grep -q "USB AUDIO"; then
+        CARD_NUM=`echo $CARDS_LINE_1 | grep -o "[0-9]" | head -1`
+     
+      elif echo $CARDS_LINE_2 | grep -q "USB AUDIO"; then 
+        CARD_NUM=`echo $CARDS_LINE_2 | grep -o "[0-9]" | head -1`
+     
+      else
+       CARD_NUM=0
+     
+      fi
+
+     XCARD=hw:$CARD_NUM
+     BUFFER=8
+fi
+
+#if more than one supported card found choose xwax card by lowest buffer size
+
+if (($XCARD_NUM > 1)); then
+
+        if test -n "$XWAX_CARD_1" && test -n "$XWAX_CARD_2"; then 
+          XCARD=hw:$XWAX_CARD_2
+          BUFFER=$BUF_2
+
+        elif test -n  "$XWAX_CARD_1" && test -n "$XWAX_CARD_3"; then 
+          XCARD=hw:$XWAX_CARD_3
+          BUFFER=$BUF_3
+
+        elif test -n "$XWAX_CARD_2" && test -n "$XWAX_CARD_3"; then 
+          XCARD=hw:$XWAX_CARD_2
+          BUFFER=$BUF_2
+       
+        fi
+
+fi
+
+echo "            "
+echo "Using "$XCARD" with" $BUFFER"ms Buffer"
+echo "            "
+
 
 if [ $BACKEND = "jackd" ]; then
     # start jack
@@ -56,12 +168,14 @@ if [ $BACKEND = "jackd" ]; then
 fi
 
 # start touchscreen buttons
-python /usr/share/pideck/touchscreen_controls &
+python /usr/share/pideck/touchscreen_controls_L &
+python /usr/share/pideck/touchscreen_controls_R &
+
 sleep 1
 
 if [ $BACKEND = "jackd" ]; then
     # start xwax
-    xwax -k -q 40 -g 800x430 --no-decor -j deck1 $PLAYLISTS &
+    xwax -k -q 40 -g 650x480 --no-decor -j deck1 $PLAYLISTS &
     sleep 2
 
     # connect jack ports
@@ -69,7 +183,11 @@ if [ $BACKEND = "jackd" ]; then
     jack_connect system:capture_2 xwax:deck1_timecode_R
     jack_connect system:playback_1 xwax:deck1_playback_L
     jack_connect system:playback_2 xwax:deck1_playback_R
+
 else
     # start xwax
-    xwax -k -q 89 -g 800x430 --no-decor -m $BUFFER -r 48000 -a $CARD $PLAYLISTS &
+    xwax -k -q 89 -g 650x480 --no-decor -m $BUFFER -r 48000 -a $XCARD $PLAYLISTS -t serato_2a -t serato_2b -t serato_cd  &
 fi
+
+
+

@@ -1,0 +1,170 @@
+#!/bin/bash
+# ---------------------------------------------------------------------------
+# RECording script
+#
+#  
+#
+# ---------------------------------------------------------------------------
+
+#-------supported cards------------------
+
+SUP_1="audioinjector-pi-soundcard" #buffer 16ms
+SUP_2="BurrBrown from Texas Instruments USB AUDIO  CODEC" #buffer 3ms
+SUP_3="Burr-Brown from TI USB Audio CODEC" #buffer 4ms
+
+#-----------------------------------------
+
+# check we have a soundcard installed
+if cat /proc/asound/cards | grep -q 'no soundcards'; then
+    echo "NO SOUNDCARDS FOUND"
+    python /usr/share/pideck/error_messages no_soundcards_found
+    /usr/share/pideck/pideck &
+    exit
+fi
+
+# parse soundcard file
+CARDS_LINE_1=`sed '1,2!d' /proc/asound/cards`
+CARDS_LINE_2=`sed '3,4!d' /proc/asound/cards`
+
+echo "        "
+echo "Available sound cards : "
+echo $CARDS_LINE_1
+echo $CARDS_LINE_2 
+echo "        "
+
+#check if there is just one card to kill xwax
+if test -z "$CARDS_LINE_2"; then
+
+   echo " killing xwax to start recording"
+   echo "           "
+    killall --wait xwax
+    killall --wait jackd
+    killall --wait /usr/bin/jackd
+    killall --wait lxpanel
+    echo "             "
+    
+    CARD_NUM=`echo $CARDS_LINE_1 | grep -o "[0-9]" | head -1`
+    RCARD=hw:$CARD_NUM
+    lxterminal --command="arecord -f cd -D $RCARD --vumeter=stereo $(date +"%Y-%m-%d_%H-%M-%S").wav" --geometry=70x30 --working-directory="/home/pi/"
+    exit
+
+else
+
+ # if 2 cards present check for supported cards.
+
+ XCARD_NUM=0
+
+ if ( echo $CARDS_LINE_2 | grep -q "$SUP_1" ) || ( echo $CARDS_LINE_1 | grep -q "$SUP_1" ); then
+
+    echo "FOUND AUDIOINJECTOR (WM8731 Codec)"
+
+      if echo $CARDS_LINE_1 | grep -q "$SUP_1"; then
+        CARD_NUM=`echo $CARDS_LINE_1 | grep -o "[0-9]" | head -1`
+      else 
+        CARD_NUM=`echo $CARDS_LINE_2 | grep -o "[0-9]" | head -1`
+      fi
+    
+    ((XCARD_NUM=XCARD_NUM+1))
+    XWAX_CARD_1=$CARD_NUM
+
+ fi
+
+ if ( echo $CARDS_LINE_2 | grep -q "$SUP_2" ) || ( echo $CARDS_LINE_1 | grep -q "$SUP_2" ); then
+   
+   echo "FOUND AMERICAN AUDIO GENIE 2 USB Audio CODEC"
+
+      if echo $CARDS_LINE_1 | grep -q "$SUP_2"; then
+        CARD_NUM=`echo $CARDS_LINE_1 | grep -o "[0-9]" | head -1`
+      else 
+        CARD_NUM=`echo $CARDS_LINE_2 | grep -o "[0-9]" | head -1`
+      fi
+ 
+    ((XCARD_NUM=XCARD_NUM+1))
+    XWAX_CARD_2=$CARD_NUM
+
+ fi
+
+ if ( echo $CARDS_LINE_2 | grep -q "$SUP_3" ) || ( echo $CARDS_LINE_1 | grep -q "$SUP_3" ); then
+
+    echo "FOUND MIDITECH PHONOFACE USB Audio CODEC"
+
+      if echo $CARDS_LINE_1 | grep -q "$SUP_3"; then
+        CARD_NUM=`echo $CARDS_LINE_1 | grep -o "[0-9]" | head -1`
+      else 
+        CARD_NUM=`echo $CARDS_LINE_2 | grep -o "[0-9]" | head -1`
+      fi
+   
+   ((XCARD_NUM=XCARD_NUM+1))
+   XWAX_CARD_3=$CARD_NUM
+
+ fi
+
+# if no supported cards found use usb for xwax, other for recording or default to hw:1
+
+ if (($XCARD_NUM < 1)); then
+     echo " no supported cards found! "
+
+     if echo $CARDS_LINE_1 | grep -q "USB AUDIO"; then
+        CARD_NUM=`echo $CARDS_LINE_1 | grep -o "[0-9]" | head -1`
+        if ( echo $CARD_NUM | grep -q "0"); then
+          RCARD="hw:1"
+         else 
+          RCARD="hw:0"
+        fi
+
+      elif echo $CARDS_LINE_2 | grep -q "USB AUDIO"; then 
+        CARD_NUM=`echo $CARDS_LINE_2 | grep -o "[0-9]" | head -1`
+        if ( echo $CARD_NUM | grep -q "0"); then
+          RCARD="hw:1"
+         else 
+          RCARD="hw:0"
+        fi
+     
+     else
+      RCARD="hw:1"
+     fi
+  
+  echo "recording with: "$RCARD
+  lxterminal --command="arecord -f cd -D $RCARD --vumeter=stereo $(date +"%Y-%m-%d_%H-%M-%S").wav" --geometry=70x30 --working-directory="/home/pi/"
+  exit
+    
+ fi
+
+# if supported card found choose non supported for recording
+
+ if (echo $CARDS_LINE_1 | grep -q "$SUP_1") || (echo $CARDS_LINE_1 | grep -q "$SUP_2") || (echo $CARDS_LINE_1 | grep -q "$SUP_3"); then
+    RCARD="hw:1"
+ 
+ else
+    RCARD="hw:0"
+ 
+ fi
+
+# if more than one supported found choose recording card by highest buffer size
+
+ if (($XCARD_NUM > 1)); then
+
+        if test -n "$XWAX_CARD_1" && test -n "$XWAX_CARD_2"; then 
+          XCARD=$XWAX_CARD_2
+
+        elif test -n  "$XWAX_CARD_1" && test -n "$XWAX_CARD_3"; then 
+          XCARD=$XWAX_CARD_3
+
+        elif test -n "$XWAX_CARD_2" && test -n "$XWAX_CARD_3"; then 
+          XCARD=$XWAX_CARD_2
+
+        fi
+
+      if ( echo $XCARD | grep -q "0"); then
+          RCARD="hw:1"
+      else 
+          RCARD="hw:0"
+      fi
+ fi
+
+fi
+
+echo "recording with: "$RCARD 
+lxterminal --command="arecord -f cd -D $RCARD --vumeter=stereo $(date +"%Y-%m-%d_%H-%M-%S").wav" --geometry=70x30 --working-directory="/home/pi/"
+
+
