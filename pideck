@@ -175,7 +175,7 @@ sleep 1
 
 if [ $BACKEND = "jackd" ]; then
     # start xwax
-    xwax -k -q 40 -g 650x480 --no-decor -j deck1 $PLAYLISTS &
+    xwax -k -q 40 -g 630x480 --no-decor -j deck1 $PLAYLISTS &
     sleep 2
 
     # connect jack ports
@@ -186,7 +186,7 @@ if [ $BACKEND = "jackd" ]; then
 
 else
     # start xwax
-    xwax -k -q 89 -g 650x480 --no-decor -m $BUFFER -r 48000 -a $XCARD $PLAYLISTS -t serato_2a -t serato_2b -t serato_cd  &
+    xwax -k -q 89 -g 630x480 --no-decor -m $BUFFER -r 48000 -a $XCARD $PLAYLISTS -t serato_2a -t serato_2b -t serato_cd  &
 fi
 
 
