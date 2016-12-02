@@ -1,0 +1,150 @@
+#!/usr/bin/env bash
+
+#read conf file into array and intitialize needed extra arrays 
+mapfile -t CONF < /usr/share/pideck/sup_cards.conf
+
+declare -a SUP=()
+declare -a BUFF=() 
+declare -a XWAX_CARD=()
+declare -a PRESENT=()
+
+#get ammount of indexes in parent array 
+j=${#CONF[@]}
+
+#fill in the needed arrays
+for ((i=0; i<$j; i++)) do
+        BUFF[$i]=$( echo "${CONF[$i]}" | tail -c 3)
+        ((l=${#CONF[$i]}-3))
+        SUP[$i]=$(echo ${CONF[$i]:0:$l})        
+done
+
+#delete obsolete array
+unset CONF
+
+# check we have a soundcard installed
+if cat /proc/asound/cards | grep -q 'no soundcards'; then
+    echo "NO SOUNDCARDS FOUND"
+    python /usr/share/pideck/error_messages no_soundcards_found
+    /usr/share/pideck/pideck &
+    exit
+fi
+
+# parse soundcard file
+CARDS_LINE_1=`sed '1,2!d' /proc/asound/cards`
+CARDS_LINE_2=`sed '3,4!d' /proc/asound/cards`
+
+echo "Available sound cards : "
+echo $CARDS_LINE_1
+echo $CARDS_LINE_2 
+echo "        "
+
+#detect supported cards while keeping track of detected cards with aux array
+
+XCARD_NUM=0
+i=0
+
+for k in "${SUP[@]}" 
+do
+
+ if ( echo $CARDS_LINE_2 | grep -q "$(echo $k)" ) || ( echo $CARDS_LINE_1 | grep -q "$(echo $k)" ); then
+   
+    echo "FOUND "$k
+
+      if echo $CARDS_LINE_1 | grep -q "$(echo $k)"; then
+        CARD_NUM=`echo $CARDS_LINE_1 | grep -o "[0-9]" | head -1`
+      else 
+        CARD_NUM=`echo $CARDS_LINE_2 | grep -o "[0-9]" | head -1`
+      fi
+    
+    ((XCARD_NUM=XCARD_NUM+1))
+     PRESENT[$i]=$k
+     XWAX_CARD[$i]=$CARD_NUM
+     XCARD="-a hw:$CARD_NUM"
+     BUFFER="${BUFF[$i]}"  
+     
+     #set the recording card to the not supported one
+     if ( echo $CARD_NUM | grep -q "0"); then
+          RCARD="hw:1"
+         else 
+          RCARD="hw:0"
+     fi     
+ fi
+  ((i=i+1))
+done
+
+echo ""
+echo "number of supported cards found: "$XCARD_NUM
+
+# if no supported cards found select first usb audio or default to first card with 8ms buffer
+if (($XCARD_NUM < 1)); then
+     echo " no supported cards found!"
+
+     if echo $CARDS_LINE_1 | grep -q "USB AUDIO"; then
+        CARD_NUM=`echo $CARDS_LINE_1 | grep -o "[0-9]" | head -1`
+     
+      elif echo $CARDS_LINE_2 | grep -q "USB AUDIO"; then 
+        CARD_NUM=`echo $CARDS_LINE_2 | grep -o "[0-9]" | head -1`
+     
+      else
+       CARD_NUM=`echo $CARDS_LINE_1 | grep -o "[0-9]" | head -1`
+     
+      fi
+
+     XCARD="--phono -a hw:$CARD_NUM"
+     BUFFER=08
+     
+     #set the recording card to the one xwax is not using
+     if ( echo $CARD_NUM | grep -q "0"); then
+          RCARD="hw:1"
+         else 
+          RCARD="hw:0"
+     fi
+fi
+
+# if more than one supported card found compare buffer sizes to select the card
+if (($XCARD_NUM > 1)); then
+    
+    for ((i=0; i<$j; i++)) do
+        if ( echo "${PRESENT[$i]}" | grep -q "$(echo "${SUP[$i]}")"); then
+           for ((k=0; k<$j; k++)) do
+              if (("${BUFF[$i]}" < "${BUFF[$k]}")) && (echo "${PRESENT[$k]}" | grep -q "$(echo "${SUP[$k]}")"); then 
+                 XCARD="-a hw:"${XWAX_CARD[$i]}""
+                 BUFFER="${BUFF[$i]}"
+              fi
+           done
+        fi
+    done          
+
+#set the recording card to the one xwax is not using
+   if ( echo "${XWAX_CARD[$i]}" | grep -q "0"); then
+      RCARD="hw:1"
+   else 
+      RCARD="hw:0"
+   fi
+      
+fi
+
+#delete rest of arrays
+
+unset SUP
+unset BUFF
+unset XWAX_CARD
+unset PRESENT
+
+#Space for specific config or multichannel dj soundcards conditionals
+
+if ( echo $CARDS_LINE_2 | grep -q "Native Instruments Audio 8 DJ" ) || ( echo $CARDS_LINE_1 | grep -q "Native Instruments Audio 8 DJ" ); then
+       XCARD="-a plughw:Audio8DJ,0,0"
+       RCARD="plughw:Audio8DJ,0,1"
+fi
+
+if ( echo $CARDS_LINE_2 | grep -q "Native Instruments Audio 6 DJ" ) || ( echo $CARDS_LINE_1 | grep -q "Native Instruments Audio 6 DJ" ); then
+       XCARD="-a T6_pair2"
+       RCARD="T6_pair1"
+       sudo cp /usr/share/pideck/T6.asound.conf /etc/asound.conf
+fi
+
+echo "            "
+echo "Using "$XCARD" with" $BUFFER"ms Buffer and recording with "$RCARD
+echo "            "
+

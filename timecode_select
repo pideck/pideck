@@ -1,0 +1,47 @@
+#!/usr/bin/env python
+
+# error_messages -- a way of showing error messages to the user      
+
+import pygtk
+pygtk.require('2.0')
+import gtk
+import sys
+import os
+
+def v_button(event):
+    print('vinyl')
+    #os.system("echo vinyl")
+    gtk.main_quit()
+
+def c_button(event):
+    print('cd')
+    #os.system("echo cd")
+    gtk.main_quit()
+
+def make_window():
+        win = gtk.Window()   
+        win.set_size_request(300, 100)
+        win.set_position(gtk.WIN_POS_CENTER)
+        win.connect("destroy", gtk.main_quit)
+        win.set_title("Select Time code to use")
+        
+        box = gtk.HButtonBox()
+
+        btn = gtk.Button("Vinyl")
+        btn.connect("clicked", v_button)
+        win.connect("destroy", gtk.main_quit)
+        btn.set_size_request(140, 100)
+        box.add(btn)
+
+        btn = gtk.Button("CD")
+        btn.connect("clicked", c_button)
+        win.connect("destroy", gtk.main_quit)
+        btn.set_size_request(140, 100)
+        box.add(btn)
+
+        win.add(box)
+        win.show_all()
+
+make_window()
+gtk.main()
+
