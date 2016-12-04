@@ -63,7 +63,6 @@ for i in "${USBROOT[@]}"; do
 done
 
 unset USBROOT
-unset CRATES
 
 #debugging
 #echo "Crates: "
