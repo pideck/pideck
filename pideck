@@ -61,7 +61,9 @@ for i in "${PLAYROOT[@]}"; do
 done
 
 for j in "${AUX[@]}"; do
- PLAYLISTS="-l \"$j\" $PLAYLISTS"
+ if [ "$(ls -A $j)" ]; then
+  PLAYLISTS="-l \"$j\" $PLAYLISTS"
+ fi
 done
 
 unset PLAYROOT
