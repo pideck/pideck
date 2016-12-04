@@ -72,15 +72,19 @@ def down_button(event):
     fake_press_key("Down")
     fake_release_key("Down")
 
-def crate_button(event):
+def crateUp_button(event):
     fake_press_key("Left")
-    fake_release_key("Left")    
+    fake_release_key("Left")   
+
+def crateDown_button(event):
+    fake_press_key("Right")
+    fake_release_key("Right")
 
 def rec_button(widget, data):
     if widget.get_active():
        os.system("./pirecord")
     else:
-       os.system("pkill arecord")
+       os.system("pkill rec")
        os.system("./pideck")
 
 
@@ -103,22 +107,27 @@ def make_window():
 
     btn = gtk.Button("UP")
     btn.connect("clicked", up_button)
-    btn.set_size_request(50, 120)
+    btn.set_size_request(50, 96)
     box.add(btn)
 
     btn = gtk.Button("DOWN")
     btn.connect("clicked", down_button)
-    btn.set_size_request(50, 120)
+    btn.set_size_request(50, 96)
     box.add(btn)
 
-    btn = gtk.Button("CRATES")
-    btn.connect("clicked", crate_button)
-    btn.set_size_request(50, 120)
+    btn = gtk.Button("CRATE UP")
+    btn.connect("clicked", crateUp_button)
+    btn.set_size_request(50, 96)
+    box.add(btn)
+    
+    btn = gtk.Button("CRATE DOWN")
+    btn.connect("clicked", crateDown_button)
+    btn.set_size_request(50, 96)
     box.add(btn)
 
     btn = gtk.ToggleButton("REC")
     btn.connect("toggled", rec_button,"REC")
-    btn.set_size_request(50, 120)
+    btn.set_size_request(50, 96)
     box.add(btn)
 
     win.add(box)
