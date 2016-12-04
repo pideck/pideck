@@ -39,39 +39,35 @@ TC_SELECT="$(get_timecode)"
 
 # Find all root folders in all mounted usbdrives and create crates for every folder 
 # including usb root
-
-declare -a PLAYROOT=()
-declare -a AUX=()
+declare -a USBROOT=()
+declare -a CRATES=()
 
 
 for NUM in 0 1 2 3 4 5 6 7; do
   if [ -d "/media/usb$NUM" ]; then 
-    PLAYROOT[$NUM]="/media/usb$NUM/*"
-    ((k=${#PLAYROOT[$NUM]}-2))
-    AUX[$NUM]=$(echo ${PLAYROOT[$NUM]:0:$k})
+   if [ "$(ls -A "/media/usb$NUM")" ]; then
+    USBROOT[$NUM]="/media/usb$NUM/*"
+    CRATES+=("-l")
+    CRATES+=("/media/usb$NUM")
+   fi
   fi
 done
 
-for i in "${PLAYROOT[@]}"; do
-  for P in $(echo "$i"); do 
-  if [ -d "$P" ]; then
-      PLAYLISTS="-l \"$P\" $PLAYLISTS"
-    fi
+for i in "${USBROOT[@]}"; do
+  for j in $(echo "$i"); do 
+   if [ -d "$j" ]; then
+      CRATES+=("-l")
+      CRATES+=("$j")
+   fi
   done
 done
 
-for j in "${AUX[@]}"; do
- if [ "$(ls -A $j)" ]; then
-  PLAYLISTS="-l \"$j\" $PLAYLISTS"
- fi
-done
-
-unset PLAYROOT
-unset AUX
+unset USBROOT
+unset CRATES
 
 #debugging
 #echo "Crates: "
-#echo $PLAYLISTS
+#echo "${CRATES[@]}"
 #echo " "
 
 # start jack if jack back end enabled
@@ -89,10 +85,10 @@ sleep 1
 if [ $BACKEND = "jackd" ]; then
     # start xwax
     if ( echo $TC_SELECT | grep -q "vinyl" ); then
-    lxterminal -e "xwax -k -q 40 -g 680x480 --no-decor -j deck1 $PLAYLISTS" &
+    xwax -k -q 40 -g 680x480 --no-decor -j deck1 "${CRATES[@]}" &
     elif ( echo $TC_SELECT | grep -q "cd" ); then
-    lxterminal -e "xwax -k -q 40 -g 680x480 --no-decor -j deck1 $PLAYLISTS -t serato_cd" &
-    else lxterminal -e "xwax -k -q 40 -g 680x480 --no-decor -j deck1 $PLAYLISTS" &
+    xwax -k -q 40 -g 680x480 --no-decor -t serato_cd -j deck1 "${CRATES[@]}" &
+    else xwax -k -q 40 -g 680x480 --no-decor -j deck1 "${CRATES[@]}" &
     fi
     sleep 2
 
@@ -105,10 +101,10 @@ if [ $BACKEND = "jackd" ]; then
 else
     # start xwax
     if ( echo $TC_SELECT | grep -q "vinyl" ); then
-     lxterminal -e "xwax -k -q 89 -g 680x480 --no-decor -m $BUFFER -r 48000 $XCARD $PLAYLISTS" &
+     xwax -k -q 89 -g 680x480 --no-decor -m $BUFFER -r 48000 $XCARD "${CRATES[@]}" &
     elif ( echo $TC_SELECT | grep -q "cd" ); then
-     lxterminal -e "xwax -k -q 89 -g 680x480 --no-decor -m $BUFFER -r 48000 -t serato_cd $XCARD $PLAYLISTS" &
-    else lxterminal -e "xwax -k -q 89 -g 680x480 --no-decor -m $BUFFER -r 48000 $XCARD $PLAYLISTS" &
+     xwax -k -q 89 -g 680x480 --no-decor -m $BUFFER -r 48000 -t serato_cd $XCARD "${CRATES[@]}" &
+    else xwax -k -q 89 -g 680x480 --no-decor -m $BUFFER -r 48000 $XCARD "${CRATES[@]}" &
     fi
 fi
 
