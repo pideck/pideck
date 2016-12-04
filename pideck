@@ -90,6 +90,7 @@ if [ $BACKEND = "jackd" ]; then
     lxterminal -e "xwax -k -q 40 -g 680x480 --no-decor -j deck1 $PLAYLISTS" &
     elif ( echo $TC_SELECT | grep -q "cd" ); then
     lxterminal -e "xwax -k -q 40 -g 680x480 --no-decor -j deck1 $PLAYLISTS -t serato_cd" &
+    else lxterminal -e "xwax -k -q 40 -g 680x480 --no-decor -j deck1 $PLAYLISTS" &
     fi
     sleep 2
 
@@ -105,6 +106,7 @@ else
      lxterminal -e "xwax -k -q 89 -g 680x480 --no-decor -m $BUFFER -r 48000 $XCARD $PLAYLISTS" &
     elif ( echo $TC_SELECT | grep -q "cd" ); then
      lxterminal -e "xwax -k -q 89 -g 680x480 --no-decor -m $BUFFER -r 48000 -t serato_cd $XCARD $PLAYLISTS" &
+    else lxterminal -e "xwax -k -q 89 -g 680x480 --no-decor -m $BUFFER -r 48000 $XCARD $PLAYLISTS" &
     fi
 fi
 
