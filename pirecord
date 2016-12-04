@@ -12,7 +12,9 @@
 #
 # for NUM in 0 1 2 3 4 5 6 7; do
 #   if [ -d "/media/usb$NUM" ]; then
-#    REC_PATH="/media/usb$NUM"
+#     if [ "$(ls -A "/media/usb$NUM")" ]; then
+#      REC_PATH="/media/usb$NUM"
+#     fi
 #   fi
 # done
 #
@@ -41,20 +43,16 @@ if test -z "$CARDS_LINE_2"; then
     
     CARD_NUM=`echo $CARDS_LINE_1 | grep -o "[0-9]" | head -1`
     RCARD=hw:$CARD_NUM
-
+    echo "recording with: "$RCARD
     if [ -d "$REC_PATH" ]; then lxterminal --command="rec -r 44100 -b 16 -c 2 -t alsa $RCARD $(date +"%Y-%m-%d_%H-%M-%S").flac" --geometry=70x30 --working-directory="$REC_PATH"
     else
-      if echo $REC_PATH | grep -q "/media/usb"; then
-        echo " error: specified usb drive for recoring, it is not mounted!!"
-      else
         mkdir $REC_PATH
         lxterminal --command="rec -r 44100 -b 16 -c 2 -t alsa $RCARD $(date +"%Y-%m-%d_%H-%M-%S").flac" --geometry=70x30 --working-directory="$REC_PATH"
-      fi
     fi
     
     exit
 
- else
+else
 
  # if 2 cards present check for supported cards.
 
@@ -65,14 +63,10 @@ source /usr/share/pideck/cards_autodetect
 echo "recording with: "$RCARD
 
  if [ -d "$REC_PATH" ]; then lxterminal --command="rec -r 44100 -b 16 -c 2 -t alsa $RCARD $(date +"%Y-%m-%d_%H-%M-%S").flac" --geometry=70x30 --working-directory="$REC_PATH"
-    else
-      if echo $REC_PATH | grep -q "/media/usb"; then
-        echo " error: specified usb drive for recoring, it is not mounted!!"
-      else
-        mkdir $REC_PATH
-        lxterminal --command="rec -r 44100 -b 16 -c 2 -t alsa $RCARD $(date +"%Y-%m-%d_%H-%M-%S").flac" --geometry=70x30 --working-directory="$REC_PATH"
-      fi
-    fi
+ else
+   mkdir $REC_PATH
+   lxterminal --command="rec -r 44100 -b 16 -c 2 -t alsa $RCARD $(date +"%Y-%m-%d_%H-%M-%S").flac" --geometry=70x30 --working-directory="$REC_PATH"
+ fi
 
 fi
 
