@@ -55,9 +55,7 @@ if test -z "$CARDS_LINE_2"; then
 else
 
  # if 2 cards present check for supported cards.
-
-./usr/share/pideck/cards_autodetect
-
+ 
 source /usr/share/pideck/cards_autodetect
 
 echo "recording with: "$RCARD
