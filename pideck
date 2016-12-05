@@ -29,8 +29,6 @@ killall --wait python
 killall --wait lxpanel
 echo "             "
 
-./usr/share/pideck/cards_autodetect
-
 source /usr/share/pideck/cards_autodetect
 
 #get type of timecode to use
