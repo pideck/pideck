@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-# Find all root folders in first 3 mounted usbdrives and create crates for every folder 
+# Find all root folders in first 4 mounted usbdrives and create crates for every folder 
 # including usb root to be able to catch files on hot plug rescanning without restarting xwax
 declare -a USBROOT=()
 declare -a CRATES=()
 
 
-for NUM in 0 1 2; do
+for NUM in 0 1 2 3; do
   if [ -d "/media/usb$NUM" ]; then 
     USBROOT[$NUM]="/media/usb$NUM/*"
     CRATES+=("-l")
