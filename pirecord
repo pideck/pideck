@@ -19,6 +19,8 @@
 # done
 #
 # ---------------------------------------------------------------------------
+# set ALSA as the recording mode for sox
+export AUDIODRIVER=alsa
 
 # parse soundcard file
 CARDS_LINE_1=`sed '1,2!d' /proc/asound/cards`
@@ -43,11 +45,12 @@ if test -z "$CARDS_LINE_2"; then
     
     CARD_NUM=`echo $CARDS_LINE_1 | grep -o "[0-9]" | head -1`
     RCARD=hw:$CARD_NUM
+    export AUDIODEV=$RCARD
     echo "recording with: "$RCARD
-    if [ -d "$REC_PATH" ]; then lxterminal --command="rec -r 44100 -b 16 -c 2 -t alsa $RCARD $(date +"%Y-%m-%d_%H-%M-%S").flac" --geometry=70x30 --working-directory="$REC_PATH"
+    if [ -d "$REC_PATH" ]; then lxterminal --command="rec -r 44100 -b 16 -c 2 $(date +"%Y-%m-%d_%H-%M-%S").flac" --geometry=70x30 --working-directory="$REC_PATH"
     else
         mkdir $REC_PATH
-        lxterminal --command="rec -r 44100 -b 16 -c 2 -t alsa $RCARD $(date +"%Y-%m-%d_%H-%M-%S").flac" --geometry=70x30 --working-directory="$REC_PATH"
+        lxterminal --command="rec -r 44100 -b 16 -c 2 $(date +"%Y-%m-%d_%H-%M-%S").flac" --geometry=70x30 --working-directory="$REC_PATH"
     fi
     
     exit
