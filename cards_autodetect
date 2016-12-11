@@ -145,6 +145,6 @@ if ( echo $CARDS_LINE_2 | grep -q "Native Instruments Audio 6 DJ" ) || ( echo $C
 fi
 
 echo "            "
-echo "Using "$XCARD" with" $BUFFER"ms Buffer
+echo "Using "$XCARD" with" $BUFFER"ms Buffer"
 echo "            "
 
