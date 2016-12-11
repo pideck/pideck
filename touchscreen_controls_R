@@ -1,0 +1,116 @@
+#!/usr/bin/env python
+# ---------------------------------------------------------------------------
+# Touchscreen controller
+#
+#  This program emulates keyboard key presses using a touchscreen.
+#
+# ---------------------------------------------------------------------------
+
+import pygtk
+pygtk.require('2.0')
+import gtk
+import time
+import sys
+import os
+
+from Xlib.X import NONE
+from Xlib.XK import string_to_keysym
+from Xlib.display import Display
+from Xlib.protocol import event
+
+def fake_press_key(key_to_press):
+    os.system("wmctrl -a xwax")
+    display = Display()
+    focus_window = display.get_input_focus().focus
+    keycode = display.keysym_to_keycode(string_to_keysym(key_to_press))
+
+    key_event = event.KeyPress(
+            time=int(time.time()),
+            root=display.screen().root,
+            window=focus_window,
+            same_screen=0, child=NONE,
+            root_x=0, root_y=0, event_x=0, event_y=0,
+            state=0,
+            detail=keycode
+    )
+
+    focus_window.send_event(key_event)
+
+    key_event = event.KeyRelease(
+            time=int(time.time()),
+            root=display.screen().root,
+            window=focus_window,
+            same_screen=0, child=NONE,
+            root_x=0, root_y=0, event_x=0, event_y=0,
+            state=0,
+            detail=keycode
+    )
+
+    focus_window.send_event(key_event)
+
+    display.sync()
+
+    os.system("wmctrl -a touchscreen")
+
+def up_button(event):
+    fake_press_key("Up")
+
+def down_button(event):
+    fake_press_key("Down")
+
+def rescan_button(event):
+    fake_press_key("Right")
+    fake_press_key("Control_L")
+    
+
+def rec_button(widget, data):
+    if widget.get_active():
+       os.system("./pirecord")
+    else:
+       os.system("pkill arecord")
+       os.system("./pideck")
+
+
+def on_key_press_event(widget, event):
+    keyname = gtk.gdk.keyval_name(event.keyval)
+    if keyname == "F10":
+        os.system("lxterminal &")
+
+def make_window2():
+    win = gtk.Window()
+    win.set_title("Touchscreen Controls2")
+    win.set_decorated(False)
+    win.set_default_size(50, 480)
+    win.move(725, 0)
+    win.add_events(gtk.gdk.KEY_PRESS_MASK)
+    win.connect("key-press-event", on_key_press_event)
+    win.connect("destroy", gtk.main_quit)
+
+    box = gtk.VButtonBox()
+
+    btn = gtk.Button("UP")
+    btn.connect("clicked", up_button)
+    btn.set_size_request(75, 120)
+    box.add(btn)
+
+    btn = gtk.Button("DOWN")
+    btn.connect("clicked", down_button)
+    box.add(btn)
+
+    btn = gtk.Button("RESCAN")
+    btn.connect("clicked", rescan_button)
+    box.add(btn)
+
+    btn = gtk.ToggleButton("REC")
+    btn.connect("toggled", rec_button,"REC")
+    box.add(btn)
+
+    win.add(box)
+
+    win.show_all()
+
+    gtk.main()
+
+
+display = Display()
+make_window2()
