@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # ---------------------------------------------------------------------------
 # Pideck
 #
@@ -6,12 +6,20 @@
 #
 # ---------------------------------------------------------------------------
 
-# where to search for music
-PLAYLISTS="-l /media"
 
-# the audio backend to use
-# "alsa" or "jackd"
+# ----------------------------- CONFIG -------------------------------------
+
+# where to search for music
+#PLAYLISTS="-l /media/"
+
+# the audio backend to use "alsa" or "jackd"
 BACKEND="alsa"
+
+#------------------------------------------------------------------------------
+
+function get_timecode() {
+   python /usr/share/pideck/timecode_select &
+}
 
 # kill everything first
 killall --wait xwax
@@ -19,49 +27,66 @@ killall --wait jackd
 killall --wait /usr/bin/jackd
 killall --wait python
 killall --wait lxpanel
+echo "             "
 
-# check we have a soundcard installed
-if cat /proc/asound/cards | grep -q 'no soundcards'; then
-    echo "NO SOUNDCARDS FOUND"
-    python /usr/share/pideck/error_messages no_soundcards_found
-    /usr/share/pideck/pideck &
-    exit
-fi
+source /usr/share/pideck/cards_autodetect
 
-# parse soundcard file
-CARDS_LINE_1=`sed '1!d' /proc/asound/cards`
-CARDS_LINE_2=`sed '2!d' /proc/asound/cards`
-# get the number of the soundcard e.g hw:0 would be 0
-CARD_NUM=`echo $CARDS_LINE_1 | grep -o "[0-9]" | head -1`
+#get type of timecode to use
+TC_SELECT="$(get_timecode)"
 
-# set parameters based on the soundcard name
-if echo $CARDS_LINE_2 | grep -q "audioinjector-pi-soundcard"; then
-    echo "FOUND AUDIOINJECTOR (WM8731 Codec)"
-    BUFFER=16
-    CARD=hw:$CARD_NUM
-elif echo $CARDS_LINE_2 | grep -q "BurrBrown from Texas Instruments USB AUDIO  CODEC"; then
-    echo "FOUND USB SOUND CARD (PCM2900 Codec)"
-    BUFFER=3
-    CARD=hw:$CARD_NUM
-else
-    # set default settings
-    BUFFER=8
-    CARD=plughw:$CARD_NUM
-fi
 
+# Find all root folders in all mounted usbdrives and create crates for every folder 
+# including usb root
+declare -a USBROOT=()
+declare -a CRATES=()
+
+
+for NUM in 0 1 2 3 4 5 6 7; do
+  if [ -d "/media/usb$NUM" ]; then 
+   if [ "$(ls -A "/media/usb$NUM")" ]; then
+    USBROOT[$NUM]="/media/usb$NUM/*"
+    CRATES+=("-l")
+    CRATES+=("/media/usb$NUM")
+   fi
+  fi
+done
+
+for i in "${USBROOT[@]}"; do
+  for j in $(echo "$i"); do 
+   if [ -d "$j" ]; then
+      CRATES+=("-l")
+      CRATES+=("$j")
+   fi
+  done
+done
+
+unset USBROOT
+
+#debugging
+#echo "Crates: "
+#echo "${CRATES[@]}"
+#echo " "
+
+# start jack if jack back end enabled
 if [ $BACKEND = "jackd" ]; then
-    # start jack
     jackd -R -T -dalsa -dhw:0,0 -r48000 -p128 -n2 -S &
     sleep 1
 fi
 
 # start touchscreen buttons
-python /usr/share/pideck/touchscreen_controls &
+python /usr/share/pideck/touchscreen_controls_L &
+python /usr/share/pideck/touchscreen_controls_R &
+
 sleep 1
 
 if [ $BACKEND = "jackd" ]; then
     # start xwax
-    xwax -k -q 40 -g 800x430 --no-decor -j deck1 $PLAYLISTS &
+    if ( echo $TC_SELECT | grep -q "vinyl" ); then
+    xwax -k -q 40 -g 630x480 --no-decor -j deck1 "${CRATES[@]}" &
+    elif ( echo $TC_SELECT | grep -q "cd" ); then
+    xwax -k -q 40 -g 630x480 --no-decor -t serato_cd -j deck1 "${CRATES[@]}" &
+    else xwax -k -q 40 -g 630x480 --no-decor -j deck1 "${CRATES[@]}" &
+    fi
     sleep 2
 
     # connect jack ports
@@ -69,7 +94,16 @@ if [ $BACKEND = "jackd" ]; then
     jack_connect system:capture_2 xwax:deck1_timecode_R
     jack_connect system:playback_1 xwax:deck1_playback_L
     jack_connect system:playback_2 xwax:deck1_playback_R
+
 else
     # start xwax
-    xwax -k -q 89 -g 800x430 --no-decor -m $BUFFER -r 48000 -a $CARD $PLAYLISTS &
+    if ( echo $TC_SELECT | grep -q "vinyl" ); then
+     xwax -k -q 89 -g 630x480 --no-decor -m $BUFFER -r 48000 $XCARD "${CRATES[@]}" &
+    elif ( echo $TC_SELECT | grep -q "cd" ); then
+     xwax -k -q 89 -g 630x480 --no-decor -m $BUFFER -r 48000 -t serato_cd $XCARD "${CRATES[@]}" &
+    else xwax -k -q 89 -g 630x480 --no-decor -m $BUFFER -r 48000 $XCARD "${CRATES[@]}" &
+    fi
 fi
+
+
+
