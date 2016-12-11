@@ -19,6 +19,7 @@ Depends:
  psmisc,
  python-gtk2,
  python-xlib,
+ sox,
  wmctrl,
  xwax,
  ${misc:Depends},
