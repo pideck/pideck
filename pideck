@@ -29,49 +29,14 @@ killall --wait python
 killall --wait lxpanel
 echo "             "
 
+#start card autodetection script
 source /usr/share/pideck/cards_autodetect
 
 #get type of timecode to use
 TC_SELECT="$(get_timecode)"
 
-
-# Find all root folders in all mounted usbdrives and create crates for every folder 
-# including usb root
-declare -a USBROOT=()
-declare -a CRATES=()
-
-
-for NUM in 0 1 2 3 4 5 6 7; do
-  if [ -d "/media/usb$NUM" ]; then 
-   if [ "$(ls -A "/media/usb$NUM")" ]; then
-    USBROOT[$NUM]="/media/usb$NUM/*"
-    CRATES+=("-l")
-    CRATES+=("/media/usb$NUM")
-   fi
-  fi
-done
-
-for i in "${USBROOT[@]}"; do
-  for j in $(echo "$i"); do 
-   if [ -d "$j" ]; then
-      CRATES+=("-l")
-      CRATES+=("$j")
-   fi
-  done
-done
-
-unset USBROOT
-
-#debugging
-#echo "Crates: "
-#echo "${CRATES[@]}"
-#echo " "
-
-# start jack if jack back end enabled
-if [ $BACKEND = "jackd" ]; then
-    jackd -R -T -dalsa -dhw:0,0 -r48000 -p128 -n2 -S &
-    sleep 1
-fi
+#start crate scan script
+source /usr/share/pideck/crate_scan_2
 
 # start touchscreen buttons
 python /usr/share/pideck/touchscreen_controls_L &
@@ -104,6 +69,3 @@ else
     else xwax -k -q 89 -g 630x480 --no-decor -m $BUFFER -r 48000 $XCARD "${CRATES[@]}" &
     fi
 fi
-
-
-

@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+# Find all root folders in all mounted usbdrives and create crates for every folder 
+# including usb root
+
+declare -a USBROOT=()
+declare -a CRATES=()
+
+
+for NUM in 0 1 2 3 4 5 6 7; do
+  if [ -d "/media/usb$NUM" ]; then 
+   if [ "$(ls -A "/media/usb$NUM")" ]; then
+    USBROOT[$NUM]="/media/usb$NUM/*"
+    CRATES+=("-l")
+    CRATES+=("/media/usb$NUM")
+   fi
+  fi
+done
+
+for i in "${USBROOT[@]}"; do
+  for j in $(echo "$i"); do 
+   if [ -d "$j" ]; then
+      CRATES+=("-l")
+      CRATES+=("$j")
+   fi
+  done
+done
+
+unset USBROOT
+
+#debugging
+#echo "Crates: "
+#echo "${CRATES[@]}"
+#echo " "
