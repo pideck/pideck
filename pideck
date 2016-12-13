@@ -69,6 +69,3 @@ else
     else xwax -k -q 89 -g 630x480 --no-decor -m $BUFFER -r 48000 $XCARD "${CRATES[@]}" &
     fi
 fi
-
-
-
