@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Find all root folders in all mounted usbdrives and create crates for every folder 
 # including usb root
 
