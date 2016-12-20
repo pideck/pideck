@@ -6,7 +6,7 @@
 # Config
 #
 # set path for recording
-  REC_PATH="/home/pi/recordings"
+REC_PATH="/home/pi/recordings"
 # 
 # uncomment the following lines to use usbstick root for recording
 #
@@ -22,6 +22,9 @@
 
 # set ALSA as the recording mode for sox
 export AUDIODRIVER=alsa
+
+# set a large input buffer to avoid recording glitches
+export SOX_OPTS="--input-buffer 64000"
 
 # parse soundcard file
 CARDS_LINE_1=`sed '1,2!d' /proc/asound/cards`
