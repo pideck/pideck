@@ -65,13 +65,13 @@ else
  # if 2 cards present check for supported cards.
  
 source /usr/share/pideck/cards_autodetect
-
+export AUDIODEV=$RCARD
 echo "recording with: "$RCARD
 
- if [ -d "$REC_PATH" ]; then lxterminal --command="rec -r 44100 -b 16 -c 2 -t alsa $RCARD $(date +"%Y-%m-%d_%H-%M-%S").flac" --geometry=70x30 --working-directory="$REC_PATH"
+ if [ -d "$REC_PATH" ]; then lxterminal --command="rec -r 44100 -b 16 -c 2 $(date +"%Y-%m-%d_%H-%M-%S").flac" --geometry=70x30 --working-directory="$REC_PATH"
  else
    mkdir $REC_PATH
-   lxterminal --command="rec -r 44100 -b 16 -c 2 -t alsa $RCARD $(date +"%Y-%m-%d_%H-%M-%S").flac" --geometry=70x30 --working-directory="$REC_PATH"
+   lxterminal --command="rec -r 44100 -b 16 -c 2 $(date +"%Y-%m-%d_%H-%M-%S").flac" --geometry=70x30 --working-directory="$REC_PATH"
  fi
 
 fi
