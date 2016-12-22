@@ -1,3 +1,9 @@
+pideck (0.3) UNRELEASED; urgency=medium
+
+  * Implement changes added by Ximae
+
+ -- Chris Obbard <chris@64studio.com>  Thu, 22 Dec 2016 18:24:09 +0000
+
 pideck (0.2-1) UNRELEASED; urgency=medium
 
   * Check soundcard exists on startup
