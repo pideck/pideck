@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Find all root folders in all mounted usbdrives and create crates for every folder 
-# including usb root
+# including usb root and the recordings directory
 
 declare -a USBROOT=()
 declare -a CRATES=()
@@ -27,6 +27,9 @@ for i in "${USBROOT[@]}"; do
 done
 
 unset USBROOT
+
+CRATES+=("-l")
+CRATES+=("/home/pi/recordings")
 
 #debugging
 #echo "Crates: "
