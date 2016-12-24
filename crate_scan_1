@@ -25,6 +25,9 @@ done
 
 unset USBROOT
 
+CRATES+=("-l")
+CRATES+=("/home/pi/recordings")
+
 #debugging
 #echo "Crates: "
 #echo "${CRATES[@]}"
