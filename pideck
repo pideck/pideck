@@ -10,12 +10,12 @@
 # ----------------------------- CONFIG -------------------------------------
 
 # where to search for music
-#LIBRARY="-l /media/ -l /home/pi/recordings/"
+LIBRARY="-l /media/"
 
-# experimental crate scanning, choose one script
-source /usr/share/pideck/crate_scan_1
+# experimental crate scanning, choose one script and uncomment LIBRARY
+#source /usr/share/pideck/crate_scan_1
 #source /usr/share/pideck/crate_scan_2
-LIBRARY="${CRATES[@]}"
+#LIBRARY="${CRATES[@]}"
 
 # the audio backend to use "alsa" or "jackd"
 BACKEND="alsa"
