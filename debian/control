@@ -16,6 +16,7 @@ Architecture: any
 Depends:
  alsa-utils,
  jackd,
+ libsox-fmt-alsa,
  psmisc,
  python-gtk2,
  python-xlib,
