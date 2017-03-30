@@ -123,7 +123,7 @@ def make_window():
     box.add(btn)
 
     btn = gtk.ToggleButton("BYPASS")
-    btn.connect("toggled", bypass_button,"REC")
+    btn.connect("toggled", bypass_button,"BYPASS")
     btn.set_size_request(50, 100)
     box.add(btn)
      
