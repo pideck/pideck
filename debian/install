@@ -12,6 +12,4 @@ soundcard-setup.service etc/systemd/system
 timecode_select usr/share/pideck
 touchscreen_controls_L usr/share/pideck
 touchscreen_controls_R usr/share/pideck
-usbmount usr/share/pideck
-usbmount.rules lib/udev/rules.d
 xwax_rescan usr/share/pideck
