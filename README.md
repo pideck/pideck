@@ -11,3 +11,8 @@ The scrips are:
 * _soundcard.state_ - example configuration for the [Audio Injector](http://www.audioinjector.net/#!/rpi-hat) soundcard levels and routing
 
 Go nuts! Please file any bugs or suggestions as [issues](https://github.com/pideck/pideck/issues) in this GitHub project. Pull requests are very welcome.
+
+build a package using:
+```sh
+dpkg-buildpackage -aarmhf -uc -us -b
+```

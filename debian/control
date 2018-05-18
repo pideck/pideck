@@ -15,7 +15,7 @@ Package: pideck
 Architecture: any
 Depends:
  alsa-utils,
- jackd,
+ jackd2,
  libsox-fmt-alsa,
  psmisc,
  python-gtk2,
