@@ -15,12 +15,15 @@ Package: pideck
 Architecture: any
 Depends:
  alsa-utils,
+ flac,
+ id3v2,
  jackd2,
  libsox-fmt-alsa,
  psmisc,
  python-gtk2,
  python-xlib,
  sox,
+	vorbis-tools,
  wmctrl,
  xwax,
  ${misc:Depends},
