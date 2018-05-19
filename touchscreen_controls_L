@@ -85,11 +85,14 @@ def rescan_button(event):
 
 def bypass_button(widget, data):
     if widget.get_active():
+       os.system("amixer sset 'Output Mixer HiFi' off")
+       os.system("amixer cset name='Line Capture Switch' 0")
        os.system("amixer sset 'Output Mixer Line Bypass' on")
     else:
        os.system("amixer sset 'Output Mixer Line Bypass' off")
+       os.system("amixer cset name='Line Capture Switch' 1")
+       os.system("amixer sset 'Output Mixer HiFi' on")
 
-    
 def on_key_press_event(widget, event):
     keyname = gtk.gdk.keyval_name(event.keyval)
     if keyname == "F10":
