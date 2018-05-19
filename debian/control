@@ -23,7 +23,7 @@ Depends:
  python-gtk2,
  python-xlib,
  sox,
-	vorbis-tools,
+ vorbis-tools,
  wmctrl,
  xwax,
  ${misc:Depends},
