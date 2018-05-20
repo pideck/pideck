@@ -40,9 +40,6 @@ source /usr/share/pideck/cards_autodetect
 #get type of timecode to use
 TC_SELECT="$(get_timecode)"
 
-#start crate scan script
-source /usr/share/pideck/crate_scan_2
-
 # start touchscreen buttons
 python /usr/share/pideck/touchscreen_controls_L &
 python /usr/share/pideck/touchscreen_controls_R &
