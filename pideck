@@ -20,6 +20,12 @@ LIBRARY="-l /media/"
 # the audio backend to use "alsa" or "jackd"
 BACKEND="alsa"
 
+# the import script to use
+IMPORT="/usr/share/xwax/xwax-import"
+
+# the scan script to use "xwax-scan" or "xwax-bpm-scan"
+SCAN="/usr/share/xwax/xwax-bpm-scan"
+
 #------------------------------------------------------------------------------
 
 function get_timecode() {
@@ -49,10 +55,10 @@ sleep 1
 if [ $BACKEND = "jackd" ]; then
     # start xwax
     if ( echo $TC_SELECT | grep -q "vinyl" ); then
-    xwax -k -q 40 -g 630x480 --no-decor -j deck1 $LIBRARY &
+    xwax -i $IMPORT -s $SCAN -k -q 40 -g 630x480 --no-decor -j deck1 $LIBRARY &
     elif ( echo $TC_SELECT | grep -q "cd" ); then
-    xwax -k -q 40 -g 630x480 --no-decor -t serato_cd -j deck1 $LIBRARY &
-    else xwax -k -q 40 -g 630x480 --no-decor -j deck1 $LIBRARY &
+    xwax -i $IMPORT -s $SCAN -k -q 40 -g 630x480 --no-decor -t serato_cd -j deck1 $LIBRARY &
+    else xwax -i $IMPORT -s $SCAN -k -q 40 -g 630x480 --no-decor -j deck1 $LIBRARY &
     fi
     sleep 2
 
@@ -65,9 +71,9 @@ if [ $BACKEND = "jackd" ]; then
 else
     # start xwax
     if ( echo $TC_SELECT | grep -q "vinyl" ); then
-     xwax -k -q 89 -g 630x480 --no-decor -m $BUFFER -r 48000 $XCARD $LIBRARY &
+     xwax -i $IMPORT -s $SCAN -k -q 89 -g 630x480 --no-decor -m $BUFFER -r 48000 $XCARD $LIBRARY &
     elif ( echo $TC_SELECT | grep -q "cd" ); then
-     xwax -k -q 89 -g 630x480 --no-decor -m $BUFFER -r 48000 -t serato_cd $XCARD $LIBRARY &
-    else xwax -k -q 89 -g 630x480 --no-decor -m $BUFFER -r 48000 $XCARD $LIBRARY &
+     xwax -i $IMPORT -s $SCAN -k -q 89 -g 630x480 --no-decor -m $BUFFER -r 48000 -t serato_cd $XCARD $LIBRARY &
+    else xwax -i $IMPORT -s $SCAN -k -q 89 -g 630x480 --no-decor -m $BUFFER -r 48000 $XCARD $LIBRARY &
     fi
 fi
