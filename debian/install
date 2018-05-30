@@ -9,7 +9,6 @@ pirecord usr/share/pideck
 soundcard.state usr/share/pideck
 sup_cards.conf usr/share/pideck
 soundcard-setup.service etc/systemd/system
-timecode_select usr/share/pideck
 touchscreen_controls_L usr/share/pideck
 touchscreen_controls_R usr/share/pideck
 xwax_rescan usr/share/pideck
