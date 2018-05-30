@@ -20,6 +20,9 @@ LIBRARY="-l /media/"
 # the audio backend to use "alsa" or "jackd"
 BACKEND="alsa"
 
+# the sample rate to use with the ALSA backend
+SAMPLERATE="48000"
+
 # the import script to use
 IMPORT="/usr/share/xwax/xwax-import"
 
@@ -27,10 +30,6 @@ IMPORT="/usr/share/xwax/xwax-import"
 SCAN="/usr/share/xwax/xwax-bpm-scan"
 
 #------------------------------------------------------------------------------
-
-function get_timecode() {
-   python /usr/share/pideck/timecode_select &
-}
 
 # kill everything first
 killall --wait xwax
@@ -43,9 +42,6 @@ echo "             "
 #start card autodetection script
 source /usr/share/pideck/cards_autodetect
 
-#get type of timecode to use
-TC_SELECT="$(get_timecode)"
-
 # start touchscreen buttons
 python /usr/share/pideck/touchscreen_controls_L &
 python /usr/share/pideck/touchscreen_controls_R &
@@ -54,12 +50,7 @@ sleep 1
 
 if [ $BACKEND = "jackd" ]; then
     # start xwax
-    if ( echo $TC_SELECT | grep -q "vinyl" ); then
     xwax -i $IMPORT -s $SCAN -k -q 40 -g 630x480 --no-decor -j deck1 $LIBRARY &
-    elif ( echo $TC_SELECT | grep -q "cd" ); then
-    xwax -i $IMPORT -s $SCAN -k -q 40 -g 630x480 --no-decor -t serato_cd -j deck1 $LIBRARY &
-    else xwax -i $IMPORT -s $SCAN -k -q 40 -g 630x480 --no-decor -j deck1 $LIBRARY &
-    fi
     sleep 2
 
     # connect jack ports
@@ -70,10 +61,5 @@ if [ $BACKEND = "jackd" ]; then
 
 else
     # start xwax
-    if ( echo $TC_SELECT | grep -q "vinyl" ); then
-     xwax -i $IMPORT -s $SCAN -k -q 89 -g 630x480 --no-decor -m $BUFFER -r 48000 $XCARD $LIBRARY &
-    elif ( echo $TC_SELECT | grep -q "cd" ); then
-     xwax -i $IMPORT -s $SCAN -k -q 89 -g 630x480 --no-decor -m $BUFFER -r 48000 -t serato_cd $XCARD $LIBRARY &
-    else xwax -i $IMPORT -s $SCAN -k -q 89 -g 630x480 --no-decor -m $BUFFER -r 48000 $XCARD $LIBRARY &
-    fi
+     xwax -i $IMPORT -s $SCAN -k -q 89 -g 630x480 --no-decor -m $BUFFER -r $SAMPLERATE $XCARD $LIBRARY &
 fi
