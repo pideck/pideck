@@ -1,21 +1,21 @@
 #!/usr/bin/env bash
 
-#read conf file into array and intitialize needed extra arrays 
+#read conf file into array and intitialize needed extra arrays
 mapfile -t CONF < /usr/share/pideck/sup_cards.conf
 
 declare -a SUP=()
-declare -a BUFF=() 
+declare -a BUFF=()
 declare -a XWAX_CARD=()
 declare -a PRESENT=()
 
-#get ammount of indexes in parent array 
+#get ammount of indexes in parent array
 j=${#CONF[@]}
 
 #fill in the needed arrays
 for ((i=0; i<$j; i++)) do
         BUFF[$i]=$( echo "${CONF[$i]}" | tail -c 3)
         ((l=${#CONF[$i]}-3))
-        SUP[$i]=$(echo ${CONF[$i]:0:$l})        
+        SUP[$i]=$(echo ${CONF[$i]:0:$l})
 done
 
 #delete obsolete array
@@ -35,7 +35,7 @@ CARDS_LINE_2=`sed '3,4!d' /proc/asound/cards`
 
 echo "Available sound cards : "
 echo $CARDS_LINE_1
-echo $CARDS_LINE_2 
+echo $CARDS_LINE_2
 echo "        "
 
 #detect supported cards while keeping track of detected cards with aux array
@@ -43,31 +43,31 @@ echo "        "
 XCARD_NUM=0
 i=0
 
-for k in "${SUP[@]}" 
+for k in "${SUP[@]}"
 do
 
  if ( echo $CARDS_LINE_2 | grep -q "$(echo $k)" ) || ( echo $CARDS_LINE_1 | grep -q "$(echo $k)" ); then
-   
+
     echo "FOUND "$k
 
       if echo $CARDS_LINE_1 | grep -q "$(echo $k)"; then
         CARD_NUM=`echo $CARDS_LINE_1 | grep -o "[0-9]" | head -1`
-      else 
+      else
         CARD_NUM=`echo $CARDS_LINE_2 | grep -o "[0-9]" | head -1`
       fi
-    
+
     ((XCARD_NUM=XCARD_NUM+1))
      PRESENT[$i]=$k
      XWAX_CARD[$i]=$CARD_NUM
      XCARD="-a hw:$CARD_NUM"
-     BUFFER="${BUFF[$i]}"  
-     
+     BUFFER="${BUFF[$i]}"
+
      #set the recording card to the not supported one
      if ( echo $CARD_NUM | grep -q "0"); then
           RCARD="hw:1"
-         else 
+         else
           RCARD="hw:0"
-     fi     
+     fi
  fi
   ((i=i+1))
 done
@@ -81,29 +81,29 @@ if (($XCARD_NUM < 1)); then
 
      if echo $CARDS_LINE_1 | grep -q "USB AUDIO"; then
         CARD_NUM=`echo $CARDS_LINE_1 | grep -o "[0-9]" | head -1`
-     
-      elif echo $CARDS_LINE_2 | grep -q "USB AUDIO"; then 
+
+      elif echo $CARDS_LINE_2 | grep -q "USB AUDIO"; then
         CARD_NUM=`echo $CARDS_LINE_2 | grep -o "[0-9]" | head -1`
-     
+
       else
        CARD_NUM=`echo $CARDS_LINE_1 | grep -o "[0-9]" | head -1`
-     
+
       fi
 
      XCARD="--phono -a hw:$CARD_NUM"
      BUFFER=08
-     
+
      #set the recording card to the one xwax is not using
      if ( echo $CARD_NUM | grep -q "0"); then
           RCARD="hw:1"
-         else 
+         else
           RCARD="hw:0"
      fi
 fi
 
 # if more than one supported card found compare buffer sizes to select the card
 if (($XCARD_NUM > 1)); then
-    
+
     for ((i=0; i<$j; i++)) do
         if ( echo "${PRESENT[$i]}" | grep -q "$(echo "${SUP[$i]}")"); then
            for ((k=0; k<$j; k++)) do
@@ -113,15 +113,15 @@ if (($XCARD_NUM > 1)); then
               fi
            done
         fi
-    done          
+    done
 
 #set the recording card to the one xwax is not using
    if ( echo "${XWAX_CARD[$i]}" | grep -q "0"); then
       RCARD="hw:1"
-   else 
+   else
       RCARD="hw:0"
    fi
-      
+
 fi
 
 #delete rest of arrays
@@ -147,6 +147,11 @@ fi
 if ( echo $CARDS_LINE_2 | grep -q "DIGITAL JOCKEY-INTERFACE" ) || ( echo $CARDS_LINE_1 | grep -q "DIGITAL JOCKEY-INTERFACE" ); then
        XCARD="-a plughw:JOCKEYINTERFACE"
        RCARD="plughw:JOCKEYINTERFACE"
+fi
+
+if ( echo $CARDS_LINE_2 | grep -q "Hercules DJ Console Mk2" ) || ( echo $CARDS_LINE_1 | grep -q "Hercules DJ Console Mk2" ); then
+       XCARD="-a plughw:Mk2"
+       RCARD="plughw:Mk2"
 fi
 
 echo "            "
