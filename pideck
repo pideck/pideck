@@ -9,7 +9,8 @@
 
 # ----------------------------- CONFIG -------------------------------------
 
-# where to search for music
+# where to search for music. Can be directories, .pls files or .m3u files
+# For multiple entries, each must have its own -l prefix within the quotes
 LIBRARY="-l /media/"
 
 # experimental crate scanning, choose one script and uncomment LIBRARY
