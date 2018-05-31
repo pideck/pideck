@@ -14,11 +14,8 @@ fi
 # reload the USB mounting udev rules
 udevadm control --reload-rules
 
-# make the USB mounting directories
-mkdir /media 2> /dev/null || :
-for i in 0 1 2 3 4 5 6 7; do
-    mkdir /media/usb$i 2> /dev/null || :
-done
+# remove the symlink added by usbmount
+rm -rf /media/usb 2> /dev/null || :
 
 # create a recordings directory and symlink it into /media
 if [ ! -d /home/pi/recordings ] ; then

@@ -13,6 +13,7 @@ Vcs-Browser: https://github.com/pideck/pideck
 
 Package: pideck
 Architecture: any
+Pre-Depends: usbmount
 Depends:
  alsa-utils,
  jackd2,

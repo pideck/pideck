@@ -1,3 +1,9 @@
+pideck (0.2-3) UNRELEASED; urgency=medium
+
+  * Remove auto-mount of USB devices as this is now handled in usbmount package
+
+ -- Christopher Obbard <chris@nemesis.home>  Thu, 31 May 2018 20:38:07 +0100
+
 pideck (0.2-2) UNRELEASED; urgency=medium
 
   * Implement changes added by Ximae
