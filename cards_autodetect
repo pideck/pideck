@@ -75,7 +75,7 @@ done
 echo ""
 echo "number of supported cards found: "$XCARD_NUM
 
-# if no supported cards found select first usb audio or default to first card with 8ms buffer
+#if no supported cards found select first usb audio or default to first card with 8ms buffer
 if (($XCARD_NUM < 1)); then
      echo " no supported cards found!"
 
@@ -101,7 +101,7 @@ if (($XCARD_NUM < 1)); then
      fi
 fi
 
-# if more than one supported card found compare buffer sizes to select the card
+#if more than one supported card found compare buffer sizes to select the card
 if (($XCARD_NUM > 1)); then
 
     for ((i=0; i<$j; i++)) do
@@ -131,17 +131,22 @@ unset BUFF
 unset XWAX_CARD
 unset PRESENT
 
-#Space for specific config or multichannel dj soundcards conditionals
+#space for dj soundcard conditionals
 
 if ( echo $CARDS_LINE_2 | grep -q "Native Instruments Audio 8 DJ" ) || ( echo $CARDS_LINE_1 | grep -q "Native Instruments Audio 8 DJ" ); then
-       XCARD="-a plughw:Audio8DJ,0,0"
-       RCARD="plughw:Audio8DJ,0,1"
+       XCARD="-a plughw:Audio8DJ,0,0 -a plughw:Audio8DJ,0,1"
+       RCARD="plughw:Audio8DJ,0,3"
 fi
 
 if ( echo $CARDS_LINE_2 | grep -q "Native Instruments Audio 6 DJ" ) || ( echo $CARDS_LINE_1 | grep -q "Native Instruments Audio 6 DJ" ); then
-       XCARD="-a T6_pair2"
-       RCARD="T6_pair1"
-       sudo cp /usr/share/pideck/T6.asound.conf /etc/asound.conf
+       XCARD="-a T6_pair1 -a T6_pair2"
+       RCARD="T6_pair3"
+       cp /usr/share/pideck/T6.asound.conf ~/.asoundrc
+fi
+
+if ( echo $CARDS_LINE_2 | grep -q "Native Instruments Audio 4 DJ" ) || ( echo $CARDS_LINE_1 | grep -q "Native Instruments Audio 4 DJ" ); then
+       XCARD="-a plughw:Audio4DJ,0,0 -a plughw:Audio4DJ,0,1"
+       RCARD="plughw:Audio4DJ,0,0"
 fi
 
 if ( echo $CARDS_LINE_2 | grep -q "DIGITAL JOCKEY-INTERFACE" ) || ( echo $CARDS_LINE_1 | grep -q "DIGITAL JOCKEY-INTERFACE" ); then
@@ -150,11 +155,18 @@ if ( echo $CARDS_LINE_2 | grep -q "DIGITAL JOCKEY-INTERFACE" ) || ( echo $CARDS_
 fi
 
 if ( echo $CARDS_LINE_2 | grep -q "Hercules DJ Console Mk2" ) || ( echo $CARDS_LINE_1 | grep -q "Hercules DJ Console Mk2" ); then
-       XCARD="-a plughw:Mk2"
+       XCARD="-a Mk2_pair1 -a Mk2_pair2"
        RCARD="plughw:Mk2"
+       cp /usr/share/pideck/Mk2.asound.conf ~/.asoundrc
+       amixer -c 1 sset PCM 181
+fi
+
+#set output level of numark stereo io and similar cards to 100%
+
+if ( echo $CARDS_LINE_2 | grep -q "BurrBrown from Texas Instruments USB AUDIO  CODEC" ) || ( echo $CARDS_LINE_1 | grep -q "BurrBrown from Texas Instruments USB AUDIO  CODEC" ); then
+       amixer -c 1 sset PCM 64
 fi
 
 echo "            "
 echo "Using "$XCARD" with" $BUFFER"ms Buffer"
 echo "            "
-
