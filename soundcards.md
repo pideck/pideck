@@ -34,7 +34,6 @@ Soundcard | Line input | Phono input | Number of decks | Hardware bypass
 --------- | ---------- | ----------- | --------------- | ---------------
 American Audio VMS2 | :heavy_check_mark: | :heavy_check_mark: | 2 | ?
 American Audio VMS4.1 | :heavy_check_mark: | :heavy_check_mark: | 2 | ?
-Art USB Phono Plus | :heavy_check_mark: | :heavy_check_mark: | 1 | ?
 Creative Sound Blaster X-Fi HD | :heavy_check_mark: | :heavy_check_mark: | 1 | ?
 Denon DJ DS1 | :heavy_check_mark: | :heavy_check_mark: | 2 | ?
 Dynavox UPR-2.0 | :heavy_check_mark: | :heavy_check_mark: | 1 | ?
@@ -44,8 +43,6 @@ Hercules RMX | :heavy_check_mark: | :heavy_check_mark: | 2 | ?
 McLelland UP-2.0 | :heavy_check_mark: | :heavy_check_mark: | 1 | :heavy_check_mark: (input mix control)
 Phonic Digitrack | :heavy_check_mark: || 1 | ?
 Power Dynamics PDX015 | :heavy_check_mark: | :heavy_check_mark: | 1 | ?
-Pro-ject Phono Box USB | | :heavy_check_mark: | 1 | ?
-Rega Fono Mini A2D | | :heavy_check_mark: | 1 | ?
 Reloop Iphono | :heavy_check_mark: | :heavy_check_mark: | 1 | ?
 Reloop Iphono 2 | :heavy_check_mark: | :heavy_check_mark: | 1 | ?
 SM Pro XP203 | :heavy_check_mark: | :heavy_check_mark: | 1 | :heavy_check_mark: (input mix control)
@@ -57,7 +54,10 @@ Traktor Audio 10 | :heavy_check_mark: | :heavy_check_mark: | 3 | :heavy_check_ma
 Soundcard | Why?
 --------- | ----
 American Audio VMS4 | Buggy audio and distortion
+Art USB Phono Plus | No suitable outputs?
 Numark DJ IO | No suitable inputs
+Pro-ject Phono Box USB / Pro-ject Phono Box USB V | No suitable outputs
+Rega Fono Mini A2D | No suitable outputs
 Reloop Digital Jockey 2 (not Interface Edition) | No suitable inputs
 Stanton Final Scratch 2 | It's FireWire, not USB
 Traktor Audio 2 | No suitable inputs
