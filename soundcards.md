@@ -55,6 +55,7 @@ Soundcard | Why?
 --------- | ----
 American Audio VMS4 | Buggy audio and distortion
 Art USB Phono Plus | No suitable outputs
+NAD PP4 | No suitable outputs
 Numark DJ IO | No suitable inputs
 Pro-ject Phono Box USB / Pro-ject Phono Box USB V | No suitable outputs
 Rega Fono Mini A2D | No suitable outputs
