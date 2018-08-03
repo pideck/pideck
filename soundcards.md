@@ -42,7 +42,7 @@ Hercules Deejay Trim | :heavy_check_mark: | :heavy_check_mark: | ? | ?
 Hercules RMX | :heavy_check_mark: | :heavy_check_mark: | 2 | ?
 McLelland UP-2.0 | :heavy_check_mark: | :heavy_check_mark: | 1 | :heavy_check_mark: (input mix control)
 Phonic Digitrack | :heavy_check_mark: || 1 | ?
-Power Dynamics PDX015 | :heavy_check_mark: | :heavy_check_mark: | 1 | ?
+Power Dynamics PDX015 | :heavy_check_mark: | :heavy_check_mark: | 1 | 
 Reloop Iphono | :heavy_check_mark: | :heavy_check_mark: | 1 | ?
 Reloop Iphono 2 | :heavy_check_mark: | :heavy_check_mark: | 1 | ?
 SM Pro XP203 | :heavy_check_mark: | :heavy_check_mark: | 1 | :heavy_check_mark: (input mix control)
