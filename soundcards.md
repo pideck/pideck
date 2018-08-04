@@ -17,7 +17,7 @@ If you play any analogue vinyl or regular CDs without timecode, you will benefit
 
 Soundcard | Line input | Phono input | Number of decks | Hardware bypass
 --------- | ---------- | ----------- | --------------- | ---------------
-American Audio Genie II / Citronic AC-1 USB / KAM USBH100 Mk II | :heavy_check_mark: | :heavy_check_mark: | 1 |
+American Audio Genie II / Citronic AC-1 USB / MixVibes Easy REC / KAM USBH100 Mk II | :heavy_check_mark: | :heavy_check_mark: | 1 |
 audioinjector.net stereo HAT | :heavy_check_mark: || 1 | :heavy_check_mark: (via amixer)
 Behringer UCA 202 / Behringer UCA 222 | :heavy_check_mark: || 1 |
 Behringer UFO 202 | :heavy_check_mark: | :heavy_check_mark: | 1 (with [hardware modification](https://mixxx.org/forums/viewtopic.php?t=2438)) |
@@ -32,22 +32,31 @@ Traktor Audio 8 | :heavy_check_mark: | :heavy_check_mark: | 3 | :heavy_check_mar
 
 Soundcard | Line input | Phono input | Number of decks | Hardware bypass
 --------- | ---------- | ----------- | --------------- | ---------------
+American Audio Versaport / MixVibes U-MIX44 / Reloop Spin! / iScratch Mixlive / Omnitronix DDI | :heavy_check_mark: | 1 deck only | 2 | ?
 American Audio VMS2 | :heavy_check_mark: | :heavy_check_mark: | 2 | ?
 American Audio VMS4.1 | :heavy_check_mark: | :heavy_check_mark: | 2 | ?
 Creative Sound Blaster X-Fi HD | :heavy_check_mark: | :heavy_check_mark: | 1 | ?
 Denon DJ DS1 | :heavy_check_mark: | :heavy_check_mark: | 2 | ?
 Dynavox UPR-2.0 | :heavy_check_mark: | :heavy_check_mark: | 1 | ?
+ESI MAYA44 USB / MAYA44 USB+ | :heavy_check_mark: | | 2 | ?
 Fe-Pi Audio v1.3 HAT | :heavy_check_mark: | | 1 | ?
 Hercules Deejay Trim | :heavy_check_mark: | :heavy_check_mark: | ? | ?
 Hercules RMX | :heavy_check_mark: | :heavy_check_mark: | 2 | ?
 McLelland UP-2.0 | :heavy_check_mark: | :heavy_check_mark: | 1 | :heavy_check_mark: (input mix control)
 Phonic Digitrack | :heavy_check_mark: || 1 | ?
-Power Dynamics PDX015 | :heavy_check_mark: | :heavy_check_mark: | 1 | 
+Power Dynamics PDX015 | :heavy_check_mark: | :heavy_check_mark: | 1 |
+Rane SL-1 | :heavy_check_mark: | Needs an ALSA patch? | 2 | ?
 Reloop Iphono | :heavy_check_mark: | :heavy_check_mark: | 1 | ?
 Reloop Iphono 2 | :heavy_check_mark: | :heavy_check_mark: | 1 | ?
 SM Pro XP203 | :heavy_check_mark: | :heavy_check_mark: | 1 | :heavy_check_mark: (input mix control)
 Stanton Final Scratch | :heavy_check_mark: | :heavy_check_mark: | 2 | ?
 Traktor Audio 10 | :heavy_check_mark: | :heavy_check_mark: | 3 | :heavy_check_mark:
+
+## Needs more research
+Soundcard | Why?
+--------- | ----
+Pioneer DJ INTERFACE 2 | Is it USB class compliant?
+Rane Sixty-Two | Is it USB class compliant?
 
 ## Will not be supported
 
