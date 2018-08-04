@@ -18,3 +18,5 @@ dpkg-buildpackage -aarmhf -uc -us -b
 ```
 
 Please see [Soundcard status](soundcards.md) for tips on which soundcard(s) to use with your PiDeck. Your help confirming which soundcards work for you would be appreciated.
+
+For keyboard shortcuts please see [Keyboard control](keyboard_control.md).
