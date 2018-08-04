@@ -43,13 +43,14 @@ Fe-Pi Audio v1.3 HAT | :heavy_check_mark: | | 1 | ?
 Hercules Deejay Trim | :heavy_check_mark: | :heavy_check_mark: | ? | ?
 Hercules RMX | :heavy_check_mark: | :heavy_check_mark: | 2 | ?
 McLelland UP-2.0 | :heavy_check_mark: | :heavy_check_mark: | 1 | :heavy_check_mark: (input mix control)
+MixVibes U46 mk2 | :heavy_check_mark: | :heavy_check_mark: | 2 | ?
 Phonic Digitrack | :heavy_check_mark: || 1 | ?
 Power Dynamics PDX015 | :heavy_check_mark: | :heavy_check_mark: | 1 |
 Rane SL-1 | :heavy_check_mark: | Needs an ALSA patch? | 2 | ?
 Reloop Iphono | :heavy_check_mark: | :heavy_check_mark: | 1 | ?
 Reloop Iphono 2 | :heavy_check_mark: | :heavy_check_mark: | 1 | ?
 SM Pro XP203 | :heavy_check_mark: | :heavy_check_mark: | 1 | :heavy_check_mark: (input mix control)
-Stanton Final Scratch | :heavy_check_mark: | :heavy_check_mark: | 2 | ?
+Stanton Final Scratch ScratchAmp v1 | :heavy_check_mark: | :heavy_check_mark: | 2 | ?
 Traktor Audio 10 | :heavy_check_mark: | :heavy_check_mark: | 3 | :heavy_check_mark:
 
 ## Needs more research
@@ -70,5 +71,5 @@ Numark DJ IO | No suitable inputs
 Pro-ject Phono Box USB / Pro-ject Phono Box USB V | No suitable outputs
 Rega Fono Mini A2D | No suitable outputs
 Reloop Digital Jockey 2 (not Interface Edition) | No suitable inputs
-Stanton Final Scratch 2 | It's FireWire, not USB
+Stanton Final Scratch ScratchAmp v2 | It's FireWire, not USB
 Traktor Audio 2 | No suitable inputs
