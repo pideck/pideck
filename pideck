@@ -43,10 +43,6 @@ echo "             "
 #start card autodetection script
 source /usr/share/pideck/cards_autodetect
 
-# start touchscreen buttons
-python /usr/share/pideck/touchscreen_controls_L &
-python /usr/share/pideck/touchscreen_controls_R &
-
 sleep 1
 
 if [ $BACKEND = "jackd" ]; then

@@ -136,29 +136,44 @@ unset PRESENT
 if ( echo $CARDS_LINE_2 | grep -q "Native Instruments Audio 8 DJ" ) || ( echo $CARDS_LINE_1 | grep -q "Native Instruments Audio 8 DJ" ); then
        XCARD="-a plughw:Audio8DJ,0,0 -a plughw:Audio8DJ,0,1"
        RCARD="plughw:Audio8DJ,0,3"
-fi
+       python /usr/share/pideck/touchscreen_controls_L --card twindeck &
+       python /usr/share/pideck/touchscreen_controls_R --card twindeck &
 
-if ( echo $CARDS_LINE_2 | grep -q "Native Instruments Audio 6 DJ" ) || ( echo $CARDS_LINE_1 | grep -q "Native Instruments Audio 6 DJ" ); then
+elif ( echo $CARDS_LINE_2 | grep -q "Native Instruments Audio 6 DJ" ) || ( echo $CARDS_LINE_1 | grep -q "Native Instruments Audio 6 DJ" ); then
        XCARD="-a T6_pair1 -a T6_pair2"
        RCARD="T6_pair3"
        cp /usr/share/pideck/T6.asound.conf ~/.asoundrc
-fi
+       python /usr/share/pideck/touchscreen_controls_L --card traktora6 &
+       python /usr/share/pideck/touchscreen_controls_R --card traktora6 &
 
-if ( echo $CARDS_LINE_2 | grep -q "Native Instruments Audio 4 DJ" ) || ( echo $CARDS_LINE_1 | grep -q "Native Instruments Audio 4 DJ" ); then
+elif ( echo $CARDS_LINE_2 | grep -q "Native Instruments Audio 4 DJ" ) || ( echo $CARDS_LINE_1 | grep -q "Native Instruments Audio 4 DJ" ); then
        XCARD="-a plughw:Audio4DJ,0,0 -a plughw:Audio4DJ,0,1"
        RCARD="plughw:Audio4DJ,0,0"
-fi
+       python /usr/share/pideck/touchscreen_controls_L --card twindeck &
+       python /usr/share/pideck/touchscreen_controls_R --card twindeck &
 
-if ( echo $CARDS_LINE_2 | grep -q "DIGITAL JOCKEY-INTERFACE" ) || ( echo $CARDS_LINE_1 | grep -q "DIGITAL JOCKEY-INTERFACE" ); then
+elif ( echo $CARDS_LINE_2 | grep -q "DIGITAL JOCKEY-INTERFACE" ) || ( echo $CARDS_LINE_1 | grep -q "DIGITAL JOCKEY-INTERFACE" ); then
        XCARD="-a plughw:JOCKEYINTERFACE"
        RCARD="plughw:JOCKEYINTERFACE"
-fi
+       python /usr/share/pideck/touchscreen_controls_L &
+       python /usr/share/pideck/touchscreen_controls_R &
 
-if ( echo $CARDS_LINE_2 | grep -q "Hercules DJ Console Mk2" ) || ( echo $CARDS_LINE_1 | grep -q "Hercules DJ Console Mk2" ); then
+elif ( echo $CARDS_LINE_2 | grep -q "Hercules DJ Console Mk2" ) || ( echo $CARDS_LINE_1 | grep -q "Hercules DJ Console Mk2" ); then
        XCARD="-a Mk2_pair1 -a Mk2_pair2"
        RCARD="plughw:Mk2"
        cp /usr/share/pideck/Mk2.asound.conf ~/.asoundrc
        amixer -c 1 sset PCM 181
+       python /usr/share/pideck/touchscreen_controls_L --card twindeck &
+       python /usr/share/pideck/touchscreen_controls_R --card twindeck &
+
+elif ( echo $CARDS_LINE_2 | grep -q "audioinjector-pi-soundcard" ) || ( echo $CARDS_LINE_1 | grep -q "audioinjector-pi-soundcard" ); then
+       python /usr/share/pideck/touchscreen_controls_L --card audioinjector &
+       python /usr/share/pideck/touchscreen_controls_R --card audioinjector &
+
+else
+       python /usr/share/pideck/touchscreen_controls_L &
+       python /usr/share/pideck/touchscreen_controls_R &
+
 fi
 
 #set output level of numark stereo io and similar cards to 100%

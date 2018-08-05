@@ -29,7 +29,7 @@ parser.add_argument('--card', action='store',
                     help='set the soundcard in use')
 
 results = parser.parse_args()
-print('soundcard is set to = {!r}'.format(results.card))
+print('Right buttons: soundcard is set to = {!r}'.format(results.card))
 
 def fake_press_key(key_to_press):
 
