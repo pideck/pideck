@@ -46,7 +46,7 @@ source /usr/share/pideck/cards_autodetect
 sleep 1
 
 if [ $BACKEND = "jackd" ]; then
-    # start xwax
+    echo -e "\nNow we are ready to start xwax and jackd:\n"
     xwax -i $IMPORT -s $SCAN -k -q 40 -g 630x480 --no-decor -j deck1 $LIBRARY &
     sleep 2
 
@@ -57,6 +57,6 @@ if [ $BACKEND = "jackd" ]; then
     jack_connect system:playback_2 xwax:deck1_playback_R
 
 else
-    # start xwax
-     xwax -i $IMPORT -s $SCAN -k -q 89 -g 630x480 --no-decor -m $BUFFER -r $SAMPLERATE $XCARD $LIBRARY &
+     echo -e "\nNow we are ready to start xwax:\n"
+     xwax -i $IMPORT -s $SCAN -k -q 89 -g 630x480 --no-decor $DICER -m $BUFFER -r $SAMPLERATE $XCARD $LIBRARY &
 fi

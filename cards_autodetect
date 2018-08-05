@@ -32,11 +32,12 @@ fi
 # parse soundcard file
 CARDS_LINE_1=`sed '1,2!d' /proc/asound/cards`
 CARDS_LINE_2=`sed '3,4!d' /proc/asound/cards`
+CARDS_LINE_3=`sed '5,6!d' /proc/asound/cards`
 
-echo "Available sound cards : "
+echo "Available sound cards:"
 echo $CARDS_LINE_1
 echo $CARDS_LINE_2
-echo "        "
+echo $CARDS_LINE_3
 
 #detect supported cards while keeping track of detected cards with aux array
 
@@ -48,7 +49,7 @@ do
 
  if ( echo $CARDS_LINE_2 | grep -q "$(echo $k)" ) || ( echo $CARDS_LINE_1 | grep -q "$(echo $k)" ); then
 
-    echo "FOUND "$k
+    echo -e "\nFOUND "$k
 
       if echo $CARDS_LINE_1 | grep -q "$(echo $k)"; then
         CARD_NUM=`echo $CARDS_LINE_1 | grep -o "[0-9]" | head -1`
@@ -72,12 +73,10 @@ do
   ((i=i+1))
 done
 
-echo ""
-echo "number of supported cards found: "$XCARD_NUM
+echo -e "\nNumber of supported cards found: "$XCARD_NUM "\n"
 
 #if no supported cards found select first usb audio or default to first card with 8ms buffer
 if (($XCARD_NUM < 1)); then
-     echo " no supported cards found!"
 
      if echo $CARDS_LINE_1 | grep -q "USB AUDIO"; then
         CARD_NUM=`echo $CARDS_LINE_1 | grep -o "[0-9]" | head -1`
@@ -90,7 +89,7 @@ if (($XCARD_NUM < 1)); then
 
       fi
 
-     XCARD="--phono -a hw:$CARD_NUM"
+     XCARD="-a hw:$CARD_NUM"
      BUFFER=08
 
      #set the recording card to the one xwax is not using
@@ -162,6 +161,7 @@ elif ( echo $CARDS_LINE_2 | grep -q "Hercules DJ Console Mk2" ) || ( echo $CARDS
        XCARD="-a Mk2_pair1 -a Mk2_pair2"
        RCARD="plughw:Mk2"
        cp /usr/share/pideck/Mk2.asound.conf ~/.asoundrc
+       echo -e "Setting output levels to maximum:\n"
        amixer -c 1 sset PCM 181
        python /usr/share/pideck/touchscreen_controls_L --card twindeck &
        python /usr/share/pideck/touchscreen_controls_R --card twindeck &
@@ -179,9 +179,15 @@ fi
 #set output level of numark stereo io and similar cards to 100%
 
 if ( echo $CARDS_LINE_2 | grep -q "BurrBrown from Texas Instruments USB AUDIO  CODEC" ) || ( echo $CARDS_LINE_1 | grep -q "BurrBrown from Texas Instruments USB AUDIO  CODEC" ); then
+       echo -e "Setting output levels to maximum:\n"
        amixer -c 1 sset PCM 64
 fi
 
-echo "            "
-echo "Using "$XCARD" with" $BUFFER"ms Buffer"
-echo "            "
+echo -e "\nUsing "$XCARD" with" $BUFFER"ms buffer\n"
+
+#check for dicer
+
+if ( echo $CARDS_LINE_3 | grep -q "Novation DMS Ltd Dicer" ) || ( echo $CARDS_LINE_2 | grep -q "Novation DMS Ltd Dicer" ) || ( echo $CARDS_LINE_1 | grep -q "Novation DMS Ltd Dicer" ); then
+        DICER="--dicer hw:Dicer"
+        echo -e "FOUND Novation Dicer\n"
+fi
