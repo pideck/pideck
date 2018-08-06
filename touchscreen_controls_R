@@ -89,6 +89,12 @@ def timecode_button(event):
     fake_press_key("F7")
     fake_release_key("F7")
 
+def traktora6_phono_button(widget, data):
+    if widget.get_active():
+       os.system("amixer -c T6 cset numid=4 on")
+    else:
+       os.system("amixer -c T6 cset numid=4 off")
+
 def traktora6_bypass_button(widget, data):
     if widget.get_active():
        os.system("amixer -c T6 cset numid=2 on")
@@ -133,20 +139,30 @@ def make_window():
     if results.card == 'traktora6' or results.card == 'twindeck':
         btn = gtk.Button("LOAD")
         btn.connect("clicked", load_button)
-        btn.set_size_request(50, 80)
+        btn.set_size_request(50, 68)
         box.add(btn)
 
         btn = gtk.Button("CUE1")
         btn.connect("clicked", cue1_button)
-        btn.set_size_request(50, 80)
+        btn.set_size_request(50, 68)
         box.add(btn)
 
         btn = gtk.Button("TIMECD")
         btn.connect("clicked", timecode_button)
-        btn.set_size_request(50, 80)
+        btn.set_size_request(50, 68)
         box.add(btn)
 
     if results.card == 'traktora6':
+        btn = gtk.ToggleButton("PHONO")
+        map = btn.get_colormap()
+        color = map.alloc_color("green")
+        style = btn.get_style().copy()
+        style.bg[gtk.STATE_ACTIVE] = color
+        btn.set_style(style)
+        btn.connect("toggled", traktora6_phono_button,"PHONO")
+        btn.set_size_request(50, 68)
+        box.add(btn)
+
         btn = gtk.ToggleButton("BYPASS")
         map = btn.get_colormap()
         color = map.alloc_color("red")
@@ -154,28 +170,28 @@ def make_window():
         style.bg[gtk.STATE_ACTIVE] = color
         btn.set_style(style)
         btn.connect("toggled", traktora6_bypass_button,"BYPASS")
-        btn.set_size_request(50, 80)
+        btn.set_size_request(50, 68)
         box.add(btn)
 
     btn = gtk.Button("UP")
     btn.connect("clicked", up_button)
-    btn.set_size_request(50, 80)
+    btn.set_size_request(50, 68)
     box.add(btn)
 
     btn = gtk.Button("DOWN")
     btn.connect("clicked", down_button)
-    btn.set_size_request(50, 80)
+    btn.set_size_request(50, 68)
     box.add(btn)
 
     if results.card != 'traktora6' and results.card != 'twindeck':
         btn = gtk.Button("SORT")
         btn.connect("clicked", sort_button)
-        btn.set_size_request(50, 80)
+        btn.set_size_request(50, 68)
         box.add(btn)
 
         btn = gtk.Button("RESCAN")
         btn.connect("clicked", rescan_button)
-        btn.set_size_request(50, 80)
+        btn.set_size_request(50, 68)
         box.add(btn)
 
     win.add(box)
