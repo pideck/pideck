@@ -4,10 +4,13 @@ cards_autodetect usr/share/pideck
 crate_scan_1 usr/share/pideck
 crate_scan_2 usr/share/pideck
 error_messages usr/share/pideck
+keyboard_control.md usr/share/doc/pideck
 pideck usr/share/pideck
 pideck.desktop usr/share/applications
+README.md usr/share/doc/pideck
 rotary_track_cue.py usr/share/pideck
 soundcard.state usr/share/pideck
+soundcards.md usr/share/doc/pideck
 sup_cards.conf usr/share/pideck
 soundcard-setup.service etc/systemd/system
 touchscreen_controls_L usr/share/pideck
