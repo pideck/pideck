@@ -58,6 +58,7 @@ Traktor Audio 10 | :heavy_check_mark: | :heavy_check_mark: | 3 | :heavy_check_ma
 Soundcard | Why?
 --------- | ----
 Pioneer DJ INTERFACE 2 | Is it USB class compliant?
+Novation Twitch | Does capture work in ALSA?
 Rane Sixty-Two | Is it USB class compliant?
 
 ## Will not be supported
@@ -66,6 +67,7 @@ Soundcard | Why?
 --------- | ----
 American Audio VMS4 | Buggy audio and distortion
 Art USB Phono Plus | No suitable outputs
+ESI Gigaport HD/HD+ | No suitable inputs
 NAD PP4 | No suitable outputs
 Numark DJ IO | No suitable inputs
 Pro-ject Phono Box USB / Pro-ject Phono Box USB V | No suitable outputs
