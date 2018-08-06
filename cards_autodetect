@@ -136,7 +136,7 @@ elif ( echo $CARDS_LINE_2 | grep -q "Hercules DJ Console Mk2" ) || ( echo $CARDS
        XCARD="-a Mk2_pair1 -a Mk2_pair2"
        cp /usr/share/pideck/Mk2.asound.conf ~/.asoundrc
        echo -e "Setting output levels to maximum:\n"
-       amixer -c 1 sset PCM 181
+       amixer -c Mk2 sset PCM 181
        python /usr/share/pideck/touchscreen_controls_L --card twindeck &
        python /usr/share/pideck/touchscreen_controls_R --card twindeck &
 
@@ -152,8 +152,11 @@ fi
 
 #set output level of numark stereo io and similar cards to 100%
 
-if ( echo $CARDS_LINE_2 | grep -q "BurrBrown from Texas Instruments USB AUDIO  CODEC" ) || ( echo $CARDS_LINE_1 | grep -q "BurrBrown from Texas Instruments USB AUDIO  CODEC" ); then
-       echo -e "Setting output levels to maximum:\n"
+if ( echo $CARDS_LINE_1 | grep -q "BurrBrown from Texas Instruments USB AUDIO  CODEC" ); then
+       echo -e "Setting output levels to maximum on first card:\n"
+       amixer -c 0 sset PCM 64
+if ( echo $CARDS_LINE_2 | grep -q "BurrBrown from Texas Instruments USB AUDIO  CODEC" ); then
+       echo -e "Setting output levels to maximum on second card:\n"
        amixer -c 1 sset PCM 64
 fi
 

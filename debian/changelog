@@ -1,3 +1,13 @@
+pideck (0.2-4) UNRELEASED; urgency=medium
+
+  * Add multi-deck configuration for USB interfaces
+  * Launch variant of touchscreen controls depending on the soundcard
+  * Add auto detection of Novation Dicer
+  * Move recording functionality to Plegger project
+  * Add soundcard and keyboard shortcut documentation
+
+ -- Daniel James <daniel@64studio.com>  Mon, 06 Aug 2018 12:19:54 +0100
+
 pideck (0.2-3) UNRELEASED; urgency=medium
 
   * Remove auto-mount of USB devices as this is now handled in usbmount package

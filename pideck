@@ -38,7 +38,7 @@ killall --wait jackd
 killall --wait /usr/bin/jackd
 killall --wait python
 killall --wait lxpanel
-echo "             "
+echo -e "\n"
 
 #start card autodetection script
 source /usr/share/pideck/cards_autodetect
