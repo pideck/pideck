@@ -1,3 +1,4 @@
+Mk2.asound.conf usr/share/pideck
 T6.asound.conf usr/share/pideck
 cards_autodetect usr/share/pideck
 crate_scan_1 usr/share/pideck
@@ -5,7 +6,7 @@ crate_scan_2 usr/share/pideck
 error_messages usr/share/pideck
 pideck usr/share/pideck
 pideck.desktop usr/share/applications
-pirecord usr/share/pideck
+rotary_track_cue.py usr/share/pideck
 soundcard.state usr/share/pideck
 sup_cards.conf usr/share/pideck
 soundcard-setup.service etc/systemd/system

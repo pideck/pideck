@@ -62,13 +62,6 @@ do
      XWAX_CARD[$i]=$CARD_NUM
      XCARD="-a hw:$CARD_NUM"
      BUFFER="${BUFF[$i]}"
-
-     #set the recording card to the not supported one
-     if ( echo $CARD_NUM | grep -q "0"); then
-          RCARD="hw:1"
-         else
-          RCARD="hw:0"
-     fi
  fi
   ((i=i+1))
 done
@@ -91,13 +84,6 @@ if (($XCARD_NUM < 1)); then
 
      XCARD="-a hw:$CARD_NUM"
      BUFFER=08
-
-     #set the recording card to the one xwax is not using
-     if ( echo $CARD_NUM | grep -q "0"); then
-          RCARD="hw:1"
-         else
-          RCARD="hw:0"
-     fi
 fi
 
 #if more than one supported card found compare buffer sizes to select the card
@@ -114,13 +100,6 @@ if (($XCARD_NUM > 1)); then
         fi
     done
 
-#set the recording card to the one xwax is not using
-   if ( echo "${XWAX_CARD[$i]}" | grep -q "0"); then
-      RCARD="hw:1"
-   else
-      RCARD="hw:0"
-   fi
-
 fi
 
 #delete rest of arrays
@@ -134,32 +113,27 @@ unset PRESENT
 
 if ( echo $CARDS_LINE_2 | grep -q "Native Instruments Audio 8 DJ" ) || ( echo $CARDS_LINE_1 | grep -q "Native Instruments Audio 8 DJ" ); then
        XCARD="-a plughw:Audio8DJ,0,0 -a plughw:Audio8DJ,0,1"
-       RCARD="plughw:Audio8DJ,0,3"
        python /usr/share/pideck/touchscreen_controls_L --card twindeck &
        python /usr/share/pideck/touchscreen_controls_R --card twindeck &
 
 elif ( echo $CARDS_LINE_2 | grep -q "Native Instruments Audio 6 DJ" ) || ( echo $CARDS_LINE_1 | grep -q "Native Instruments Audio 6 DJ" ); then
        XCARD="-a T6_pair1 -a T6_pair2"
-       RCARD="T6_pair3"
        cp /usr/share/pideck/T6.asound.conf ~/.asoundrc
        python /usr/share/pideck/touchscreen_controls_L --card traktora6 &
        python /usr/share/pideck/touchscreen_controls_R --card traktora6 &
 
 elif ( echo $CARDS_LINE_2 | grep -q "Native Instruments Audio 4 DJ" ) || ( echo $CARDS_LINE_1 | grep -q "Native Instruments Audio 4 DJ" ); then
        XCARD="-a plughw:Audio4DJ,0,0 -a plughw:Audio4DJ,0,1"
-       RCARD="plughw:Audio4DJ,0,0"
        python /usr/share/pideck/touchscreen_controls_L --card twindeck &
        python /usr/share/pideck/touchscreen_controls_R --card twindeck &
 
 elif ( echo $CARDS_LINE_2 | grep -q "DIGITAL JOCKEY-INTERFACE" ) || ( echo $CARDS_LINE_1 | grep -q "DIGITAL JOCKEY-INTERFACE" ); then
        XCARD="-a plughw:JOCKEYINTERFACE"
-       RCARD="plughw:JOCKEYINTERFACE"
        python /usr/share/pideck/touchscreen_controls_L &
        python /usr/share/pideck/touchscreen_controls_R &
 
 elif ( echo $CARDS_LINE_2 | grep -q "Hercules DJ Console Mk2" ) || ( echo $CARDS_LINE_1 | grep -q "Hercules DJ Console Mk2" ); then
        XCARD="-a Mk2_pair1 -a Mk2_pair2"
-       RCARD="plughw:Mk2"
        cp /usr/share/pideck/Mk2.asound.conf ~/.asoundrc
        echo -e "Setting output levels to maximum:\n"
        amixer -c 1 sset PCM 181
