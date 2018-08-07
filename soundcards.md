@@ -24,7 +24,7 @@ Behringer UFO 202 | :heavy_check_mark: | :heavy_check_mark: | 1 (with [hardware 
 Hercules Mk2 | :heavy_check_mark: | :heavy_check_mark: | 2 | :heavy_check_mark: (audio source buttons)
 Numark Stereo IO | :heavy_check_mark: | :heavy_check_mark: | 1 |
 Reloop Digital Jockey 2 Interface Edition | :heavy_check_mark: | :heavy_check_mark: | 1 |
-Traktor Audio 4 | :heavy_check_mark: | :heavy_check_mark: | 2 | :heavy_check_mark:
+Traktor Audio 4 | :heavy_check_mark: | :heavy_check_mark: | 2 |
 Traktor Audio 6 | :heavy_check_mark: | :heavy_check_mark: | 3 | :heavy_check_mark:
 Traktor Audio 8 | :heavy_check_mark: | :heavy_check_mark: | 3 | :heavy_check_mark:
 
@@ -60,6 +60,7 @@ Soundcard | Why?
 Pioneer DJ INTERFACE 2 | Is it USB class compliant?
 Novation Twitch | Does capture work in ALSA?
 Rane Sixty-Two | Is it USB class compliant?
+Reloop RMX-90 DVS | Needs an ALSA driver
 
 ## Will not be supported
 
