@@ -23,6 +23,7 @@ Behringer UCA 202 / Behringer UCA 222 | :heavy_check_mark: || 1 |
 Behringer UFO 202 | :heavy_check_mark: | :heavy_check_mark: | 1 (with [hardware modification](https://mixxx.org/forums/viewtopic.php?t=2438)) |
 Hercules Mk2 | :heavy_check_mark: | :heavy_check_mark: | 2 | :heavy_check_mark: (audio source buttons)
 Numark Stereo IO | :heavy_check_mark: | :heavy_check_mark: | 1 |
+Phonic Digitrack | :heavy_check_mark: || 1 |
 Reloop Digital Jockey 2 Interface Edition | :heavy_check_mark: | :heavy_check_mark: | 1 |
 Traktor Audio 4 | :heavy_check_mark: | :heavy_check_mark: | 2 |
 Traktor Audio 6 | :heavy_check_mark: | :heavy_check_mark: | 3 | :heavy_check_mark: (via amixer)
@@ -44,14 +45,13 @@ Hercules Deejay Trim | :heavy_check_mark: | :heavy_check_mark: | ? | ?
 Hercules RMX | :heavy_check_mark: | :heavy_check_mark: | 2 | ?
 McLelland UP-2.0 | :heavy_check_mark: | :heavy_check_mark: | 1 | :heavy_check_mark: (input mix control)
 MixVibes U46 mk2 | :heavy_check_mark: | :heavy_check_mark: | 2 | ?
-Phonic Digitrack | :heavy_check_mark: || 1 | ?
 Power Dynamics PDX015 | :heavy_check_mark: | :heavy_check_mark: | 1 |
 Rane SL-1 | :heavy_check_mark: | Needs an ALSA patch? | 2 | ?
 Reloop Iphono | :heavy_check_mark: | :heavy_check_mark: | 1 | ?
 Reloop Iphono 2 | :heavy_check_mark: | :heavy_check_mark: | 1 | ?
 SM Pro XP203 | :heavy_check_mark: | :heavy_check_mark: | 1 | :heavy_check_mark: (input mix control)
 Stanton Final Scratch ScratchAmp v1 | :heavy_check_mark: | :heavy_check_mark: | 2 | ?
-Traktor Audio 10 | :heavy_check_mark: | :heavy_check_mark: | 3 | :heavy_check_mark:
+Traktor Audio 10 | :heavy_check_mark: | :heavy_check_mark: | 3 | via amixer?
 
 ## Needs more research
 
