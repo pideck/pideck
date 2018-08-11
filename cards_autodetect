@@ -92,7 +92,7 @@ if (($XCARD_NUM > 1)); then
     for ((i=0; i<$j; i++)) do
         if ( echo "${PRESENT[$i]}" | grep -q "$(echo "${SUP[$i]}")"); then
            for ((k=0; k<$j; k++)) do
-              if (("${BUFF[$i]}" < "${BUFF[$k]}")) && (echo "${PRESENT[$k]}" | grep -q "$(echo "${SUP[$k]}")"); then 
+              if (("${BUFF[$i]}" < "${BUFF[$k]}")) && (echo "${PRESENT[$k]}" | grep -q "$(echo "${SUP[$k]}")"); then
                  XCARD="-a hw:"${XWAX_CARD[$i]}""
                  BUFFER="${BUFF[$i]}"
               fi
@@ -140,6 +140,11 @@ elif ( echo $CARDS_LINE_2 | grep -q "Hercules DJ Console Mk2" ) || ( echo $CARDS
        python /usr/share/pideck/touchscreen_controls_L --card twindeck &
        python /usr/share/pideck/touchscreen_controls_R --card twindeck &
 
+elif ( echo $CARDS_LINE_2 | grep -q "Brown from T" ) && ( echo $CARDS_LINE_1 | grep -q "Brown from T" ); then
+       XCARD="-a hw:0 -a hw:1"
+       python /usr/share/pideck/touchscreen_controls_L --card twindeck &
+       python /usr/share/pideck/touchscreen_controls_R --card twindeck &
+
 elif ( echo $CARDS_LINE_2 | grep -q "audioinjector-pi-soundcard" ) || ( echo $CARDS_LINE_1 | grep -q "audioinjector-pi-soundcard" ); then
        python /usr/share/pideck/touchscreen_controls_L --card audioinjector &
        python /usr/share/pideck/touchscreen_controls_R --card audioinjector &
@@ -152,12 +157,24 @@ fi
 
 #set output level of numark stereo io and similar cards to 100%
 
-if ( echo $CARDS_LINE_1 | grep -q "BurrBrown from Texas Instruments USB AUDIO  CODEC" ); then
+if ( echo $CARDS_LINE_1 | grep -q "BurrBrown from Texas Instruments USB AUDIO" ); then
        echo -e "Setting output levels to maximum on first card:\n"
        amixer -c 0 sset PCM 64
-if ( echo $CARDS_LINE_2 | grep -q "BurrBrown from Texas Instruments USB AUDIO  CODEC" ); then
-       echo -e "Setting output levels to maximum on second card:\n"
+fi
+
+if ( echo $CARDS_LINE_2 | grep -q "BurrBrown from Texas Instruments USB AUDIO" ); then
+       echo -e "\nSetting output levels to maximum on second card:\n"
        amixer -c 1 sset PCM 64
+fi
+
+if ( echo $CARDS_LINE_1 | grep -q "Burr-Brown from TI USB Audio CODEC" ); then
+       echo -e "Setting output levels to maximum on first card:\n"
+       amixer -c 0 sset PCM 128
+fi
+
+if ( echo $CARDS_LINE_2 | grep -q "Burr-Brown from TI USB Audio CODEC" ); then
+       echo -e "\nSetting output levels to maximum on second card:\n"
+       amixer -c 1 sset PCM 128
 fi
 
 echo -e "\nUsing "$XCARD" with" $BUFFER"ms buffer\n"
