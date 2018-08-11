@@ -25,8 +25,8 @@ Hercules Mk2 | :heavy_check_mark: | :heavy_check_mark: | 2 | :heavy_check_mark: 
 Numark Stereo IO | :heavy_check_mark: | :heavy_check_mark: | 1 |
 Reloop Digital Jockey 2 Interface Edition | :heavy_check_mark: | :heavy_check_mark: | 1 |
 Traktor Audio 4 | :heavy_check_mark: | :heavy_check_mark: | 2 |
-Traktor Audio 6 | :heavy_check_mark: | :heavy_check_mark: | 3 | :heavy_check_mark:
-Traktor Audio 8 | :heavy_check_mark: | :heavy_check_mark: | 3 | :heavy_check_mark:
+Traktor Audio 6 | :heavy_check_mark: | :heavy_check_mark: | 3 | :heavy_check_mark: (via amixer)
+Traktor Audio 8 | :heavy_check_mark: | :heavy_check_mark: | 3 | :heavy_check_mark: (via input mode button)
 
 ## Potentially could work
 
