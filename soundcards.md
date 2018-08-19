@@ -17,7 +17,7 @@ If you play any analogue vinyl or regular CDs without timecode, you will benefit
 
 Soundcard | Line input | Phono input | Number of decks | Hardware bypass
 --------- | ---------- | ----------- | --------------- | ---------------
-American Audio Genie II / Citronic AC-1 USB / KAM USBH100 Mk II / MixVibes Easy REC | :heavy_check_mark: | :heavy_check_mark: | 1 |
+American Audio Genie II / Citronic AC-1 USB / KAM USBH100 Mk II / MixVibes Easy REC / MixVibes U-RIP 22 | :heavy_check_mark: | :heavy_check_mark: | 1 |
 audioinjector.net stereo HAT | :heavy_check_mark: || 1 | :heavy_check_mark: (via amixer)
 Behringer UCA 202 / Behringer UCA 222 | :heavy_check_mark: || 1 |
 Behringer UFO 202 | :heavy_check_mark: | :heavy_check_mark: | 1 (with [hardware modification](https://mixxx.org/forums/viewtopic.php?t=2438)) |
@@ -56,6 +56,8 @@ Traktor Audio 10 | :heavy_check_mark: | :heavy_check_mark: | 3 | via amixer?
 
 Soundcard | Why?
 --------- | ----
+Furutech ADL GT40A | Is it USB class compliant?
+Furutech ADL Stratos | Is it USB class compliant?
 Pioneer DJ INTERFACE 2 | Is it USB class compliant?
 Novation Twitch | Does capture work in ALSA?
 Rane Sixty-Two | Is it USB class compliant?
@@ -66,13 +68,14 @@ Reloop RMX-90 DVS | Needs an ALSA driver
 Soundcard | Why?
 --------- | ----
 American Audio VMS4 | Buggy audio and distortion
-Art USB Phono Plus | No suitable outputs
+Art USB Phono Plus | USB output to analogue on headphone jack only
 ESI Gigaport HD/HD+ | No suitable inputs
-NAD PP4 | No suitable outputs
+NAD PP4 | No suitable outputs from USB
 Numark DJ IO | No suitable inputs
 Phonic Digitrack | Line input distortion
-Pro-ject Phono Box USB / Pro-ject Phono Box USB V | No suitable outputs
-Rega Fono Mini A2D | No suitable outputs
+Pro-ject Phono Box USB / Pro-ject Phono Box USB V | No suitable outputs from USB
+Rega Fono Mini A2D | No suitable outputs from USB
 Reloop Digital Jockey 2 (not Interface Edition) | No suitable inputs
 Stanton Final Scratch ScratchAmp v2 | It's FireWire, not USB
 Traktor Audio 2 | No suitable inputs
+USB turntable built-in (generic) | No suitable outputs from USB
