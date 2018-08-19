@@ -23,7 +23,6 @@ Behringer UCA 202 / Behringer UCA 222 | :heavy_check_mark: || 1 |
 Behringer UFO 202 | :heavy_check_mark: | :heavy_check_mark: | 1 (with [hardware modification](https://mixxx.org/forums/viewtopic.php?t=2438)) |
 Hercules Mk2 | :heavy_check_mark: | :heavy_check_mark: | 2 | :heavy_check_mark: (audio source buttons)
 Numark Stereo IO | :heavy_check_mark: | :heavy_check_mark: | 1 |
-Phonic Digitrack | :heavy_check_mark: || 1 |
 Reloop Digital Jockey 2 Interface Edition | :heavy_check_mark: | :heavy_check_mark: | 1 |
 Traktor Audio 4 | :heavy_check_mark: | :heavy_check_mark: | 2 |
 Traktor Audio 6 | :heavy_check_mark: | :heavy_check_mark: | 3 | :heavy_check_mark: (via amixer)
@@ -71,6 +70,7 @@ Art USB Phono Plus | No suitable outputs
 ESI Gigaport HD/HD+ | No suitable inputs
 NAD PP4 | No suitable outputs
 Numark DJ IO | No suitable inputs
+Phonic Digitrack | Line input distortion
 Pro-ject Phono Box USB / Pro-ject Phono Box USB V | No suitable outputs
 Rega Fono Mini A2D | No suitable outputs
 Reloop Digital Jockey 2 (not Interface Edition) | No suitable inputs
