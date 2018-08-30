@@ -24,6 +24,7 @@ Behringer UFO 202 | :heavy_check_mark: | :heavy_check_mark: | 1 (with [hardware 
 Hercules Mk2 | :heavy_check_mark: | :heavy_check_mark: | 2 | :heavy_check_mark: (audio source buttons)
 Numark Stereo IO | :heavy_check_mark: | :heavy_check_mark: | 1 |
 Reloop Digital Jockey 2 Interface Edition | :heavy_check_mark: | :heavy_check_mark: | 1 |
+Synchroscience by M-audio Conectiv | :heavy_check_mark: | :heavy_check_mark: | 2 | :heavy_check_mark: (via Mix knobs)
 Traktor Audio 4 | :heavy_check_mark: | :heavy_check_mark: | 2 |
 Traktor Audio 6 | :heavy_check_mark: | :heavy_check_mark: | 3 | :heavy_check_mark: (via amixer)
 Traktor Audio 8 | :heavy_check_mark: | :heavy_check_mark: | 3 | :heavy_check_mark: (via input mode button)
@@ -42,7 +43,7 @@ ESI MAYA44 USB / MAYA44 USB+ | :heavy_check_mark: | | 2 | ?
 Fe-Pi Audio v1.3 HAT | :heavy_check_mark: | | 1 | ?
 Hercules Deejay Trim | :heavy_check_mark: | :heavy_check_mark: | ? | ?
 Hercules RMX | :heavy_check_mark: | :heavy_check_mark: | 2 | ?
-McLelland UP-2.0 | :heavy_check_mark: | :heavy_check_mark: | 1 | :heavy_check_mark: (input mix control)
+McLelland UP-2.0 / American Audio Genie Pro | :heavy_check_mark: | :heavy_check_mark: | 1 | :heavy_check_mark: (input mix control)
 MixVibes U46 mk2 | :heavy_check_mark: | :heavy_check_mark: | 2 | ?
 Power Dynamics PDX015 | :heavy_check_mark: | :heavy_check_mark: | 1 |
 Rane SL-1 | :heavy_check_mark: | Needs an ALSA patch? | 2 | ?
@@ -70,6 +71,7 @@ Soundcard | Why?
 American Audio VMS4 | Buggy audio and distortion
 Art USB Phono Plus | USB output to analogue on headphone jack only
 ESI Gigaport HD/HD+ | No suitable inputs
+Ion Record 2 PC | No suitable outputs from USB
 NAD PP4 | No suitable outputs from USB
 Numark DJ IO | No suitable inputs
 Phonic Digitrack | Line input distortion
@@ -77,5 +79,6 @@ Pro-ject Phono Box USB / Pro-ject Phono Box USB V | No suitable outputs from USB
 Rega Fono Mini A2D | No suitable outputs from USB
 Reloop Digital Jockey 2 (not Interface Edition) | No suitable inputs
 Stanton Final Scratch ScratchAmp v2 | It's FireWire, not USB
+Terratec PhonoPreAmp iVinyl | No suitable outputs from USB
 Traktor Audio 2 | No suitable inputs
 USB turntable built-in (generic) | No suitable outputs from USB
