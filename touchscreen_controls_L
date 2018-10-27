@@ -80,17 +80,14 @@ def fake_release_key(key_to_press):
 def load1_button(event):
     fake_press_key("F1")
     fake_release_key("F1")
-    cue1_button(event)
 
 def load2_button(event):
     fake_press_key("F5")
     fake_release_key("F5")
-    cue2_button(event)
 
 def load3_button(event):
     fake_press_key("F9")
     fake_release_key("F9")
-    cue3_button(event)
 
 def cue1_button(event):
     fake_press_key("F2")
