@@ -200,7 +200,7 @@ def make_window():
     btn.connect("clicked", pagedown_button)
     box.add(btn)
 
-    if results.card != 'traktora6' and results.card != 'twindeck':
+    if results.card != 'traktora6' and results.card != 'twindeck' and results.card != 'ranesl1':
         btn = gtk.Button("SORT")
         btn.connect("clicked", sort_button)
         btn.set_size_request(50, 68)
