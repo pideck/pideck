@@ -23,6 +23,7 @@ Behringer UCA 202 / Behringer UCA 222 | :heavy_check_mark: || 1 |
 Behringer UFO 202 | :heavy_check_mark: | :heavy_check_mark: | 1 (with [hardware modification](https://mixxx.org/forums/viewtopic.php?t=2438)) |
 Hercules Mk2 | :heavy_check_mark: | :heavy_check_mark: | 2 | :heavy_check_mark: (audio source buttons)
 Numark Stereo IO | :heavy_check_mark: | :heavy_check_mark: | 1 |
+Rane SL-1 | :heavy_check_mark: | :heavy_check_mark (soft. via xwax) | 2 | :heavy_check_mark: (need to find how to toggle, but both receive signal @ LINE level)
 Reloop Digital Jockey 2 Interface Edition | :heavy_check_mark: | :heavy_check_mark: | 1 |
 Synchroscience by M-audio Conectiv | :heavy_check_mark: | :heavy_check_mark: | 2 | :heavy_check_mark: (via Mix knobs)
 Traktor Audio 4 | :heavy_check_mark: | :heavy_check_mark: | 2 |
@@ -46,7 +47,6 @@ Hercules RMX | :heavy_check_mark: | :heavy_check_mark: | 2 | ?
 McLelland UP-2.0 / American Audio Genie Pro | :heavy_check_mark: | :heavy_check_mark: | 1 | :heavy_check_mark: (input mix control)
 MixVibes U46 mk2 | :heavy_check_mark: | :heavy_check_mark: | 2 | ?
 Power Dynamics PDX015 | :heavy_check_mark: | :heavy_check_mark: | 1 |
-Rane SL-1 | :heavy_check_mark: | Needs an ALSA patch? | 2 | ?
 Reloop Iphono | :heavy_check_mark: | :heavy_check_mark: | 1 | ?
 Reloop Iphono 2 | :heavy_check_mark: | :heavy_check_mark: | 1 | ?
 SM Pro XP203 | :heavy_check_mark: | :heavy_check_mark: | 1 | :heavy_check_mark: (input mix control)
