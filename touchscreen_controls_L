@@ -80,14 +80,17 @@ def fake_release_key(key_to_press):
 def load1_button(event):
     fake_press_key("F1")
     fake_release_key("F1")
+    cue1_button(event)
 
 def load2_button(event):
     fake_press_key("F5")
     fake_release_key("F5")
+    cue2_button(event)
 
 def load3_button(event):
     fake_press_key("F9")
     fake_release_key("F9")
+    cue3_button(event)
 
 def cue1_button(event):
     fake_press_key("F2")
@@ -101,9 +104,13 @@ def cue3_button(event):
     fake_press_key("F10")
     fake_release_key("F11")
 
-def timecode1_button(event):
+def timecode_button(event):
     fake_press_key("F3")
     fake_release_key("F3")
+    fake_press_key("F7")
+    fake_release_key("F7")
+    fake_press_key("F11")
+    fake_release_key("F11")
 
 def audioinjector_bypass_button(widget, data):
     if widget.get_active():
@@ -176,18 +183,11 @@ def make_window():
     	btn.set_size_request(50, 68)
     	box.add(btn)
 
-    btn = gtk.Button("TIMECD1")
-    btn.connect("clicked", timecode1_button)
+    btn = gtk.Button("TIMECD")
+    btn.connect("clicked", timecode_button)
     btn.set_size_request(50, 68)
     box.add(btn)
 
-    """
-    if results.card == "ranesl1":
-    	btn = gtk.Button("TIMECD2")
-    	btn.connect("clicked", timecode2_button)
-    	btn.set_size_request(50, 68)
-    	box.add(btn)
-    """
 
     if results.card == 'audioinjector':
         btn = gtk.ToggleButton("BYPASS")
