@@ -81,9 +81,25 @@ def load_button(event):
     fake_press_key("F1")
     fake_release_key("F1")
 
-def cue1_button(event):
+def load2_button(event):
+    fake_press_key("F5")
+    fake_release_key("F5")
+
+def load3_button(event):
+    fake_press_key("F9")
+    fake_release_key("F9")
+
+def cue_button(event):
     fake_press_key("F2")
     fake_release_key("F2")
+
+def cue2_button(event):
+    fake_press_key("F6")
+    fake_release_key("F6")
+
+def cue3_button(event):
+    fake_press_key("F10")
+    fake_release_key("F11")
 
 def timecode_button(event):
     fake_press_key("F3")
@@ -143,8 +159,8 @@ def make_window():
     btn.set_size_request(50, 68)
     box.add(btn)
 
-    btn = gtk.Button("CUE1")
-    btn.connect("clicked", cue1_button)
+    btn = gtk.Button("CUE")
+    btn.connect("clicked", cue_button)
     btn.set_size_request(50, 68)
     box.add(btn)
 
@@ -152,6 +168,7 @@ def make_window():
     btn.connect("clicked", timecode_button)
     btn.set_size_request(50, 68)
     box.add(btn)
+
 
     if results.card == 'audioinjector':
         btn = gtk.ToggleButton("BYPASS")
@@ -185,7 +202,7 @@ def make_window():
         btn.set_size_request(50, 68)
         box.add(btn)
 
-    if results.card == 'traktora6' or results.card == 'twindeck':
+    if results.card == 'traktora6' or results.card == 'twindeck' or results.card == 'ranesl1':
         btn = gtk.Button("SORT")
         btn.connect("clicked", sort_button)
         btn.set_size_request(50, 68)
