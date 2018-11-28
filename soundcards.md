@@ -25,7 +25,6 @@ Hercules Mk2 | :heavy_check_mark: | :heavy_check_mark: | 2 | :heavy_check_mark: 
 Numark Stereo IO | :heavy_check_mark: | :heavy_check_mark: | 1 |
 Rane SL-1 | :heavy_check_mark: | :heavy_check_mark (soft. via xwax) | 2 | :heavy_check_mark: (need to find how to toggle, but both receive signal @ LINE level)
 Reloop Digital Jockey 2 Interface Edition | :heavy_check_mark: | :heavy_check_mark: | 1 |
-Synchroscience by M-audio Conectiv | :heavy_check_mark: | :heavy_check_mark: | 2 | :heavy_check_mark: (via Mix knobs)
 Traktor Audio 4 | :heavy_check_mark: | :heavy_check_mark: | 2 |
 Traktor Audio 6 | :heavy_check_mark: | :heavy_check_mark: | 3 | :heavy_check_mark: (via amixer)
 Traktor Audio 8 | :heavy_check_mark: | :heavy_check_mark: | 3 | :heavy_check_mark: (via input mode button)
@@ -51,6 +50,7 @@ Reloop Iphono | :heavy_check_mark: | :heavy_check_mark: | 1 | ?
 Reloop Iphono 2 | :heavy_check_mark: | :heavy_check_mark: | 1 | ?
 SM Pro XP203 | :heavy_check_mark: | :heavy_check_mark: | 1 | :heavy_check_mark: (input mix control)
 Stanton Final Scratch ScratchAmp v1 | :heavy_check_mark: | :heavy_check_mark: | 2 | ?
+Synchroscience by M-audio Conectiv | :heavy_check_mark: | :heavy_check_mark: | 2 | :heavy_check_mark: (via Mix knobs)
 Traktor Audio 10 | :heavy_check_mark: | :heavy_check_mark: | 3 | via amixer?
 
 ## Needs more research
@@ -59,8 +59,8 @@ Soundcard | Why?
 --------- | ----
 Furutech ADL GT40A | Is it USB class compliant?
 Furutech ADL Stratos | Is it USB class compliant?
-Pioneer DJ INTERFACE 2 | Is it USB class compliant?
 Novation Twitch | Does capture work in ALSA?
+Pioneer DJ INTERFACE 2 | Needs an ALSA driver
 Rane Sixty-Two | Is it USB class compliant?
 Reloop RMX-90 DVS | Needs an ALSA driver
 
