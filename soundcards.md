@@ -73,7 +73,8 @@ Art USB Phono Plus | USB output to analogue on headphone jack only
 ESI Gigaport HD/HD+ | No suitable inputs
 Ion Record 2 PC | No suitable outputs from USB
 NAD PP4 | No suitable outputs from USB
-Numark DJ IO | No suitable inputs
+Numark DJ iO | No suitable inputs
+Numark DJ iO 2 | No suitable inputs
 Phonic Digitrack | Line input distortion
 Pro-ject Phono Box USB / Pro-ject Phono Box USB V | No suitable outputs from USB
 Rega Fono Mini A2D | No suitable outputs from USB
