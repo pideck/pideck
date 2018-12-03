@@ -49,6 +49,7 @@ Power Dynamics PDX015 | :heavy_check_mark: | :heavy_check_mark: | 1 |
 Reloop Iphono | :heavy_check_mark: | :heavy_check_mark: | 1 | ?
 Reloop Iphono 2 | :heavy_check_mark: | :heavy_check_mark: | 1 | ?
 SM Pro XP203 | :heavy_check_mark: | :heavy_check_mark: | 1 | :heavy_check_mark: (input mix control)
+Sonneteer Sedley USB | | :heavy_check_mark: | 1 | ?
 Stanton Final Scratch ScratchAmp v1 | :heavy_check_mark: | :heavy_check_mark: | 2 | ?
 Synchroscience by M-audio Conectiv | :heavy_check_mark: | :heavy_check_mark: | 2 | :heavy_check_mark: (via Mix knobs)
 Traktor Audio 10 | :heavy_check_mark: | :heavy_check_mark: | 3 | via amixer?
