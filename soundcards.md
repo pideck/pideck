@@ -23,7 +23,7 @@ Behringer UCA 202 / Behringer UCA 222 | :heavy_check_mark: || 1 |
 Behringer UFO 202 | :heavy_check_mark: | :heavy_check_mark: | 1 (with [hardware modification](https://mixxx.org/forums/viewtopic.php?t=2438)) |
 Hercules Mk2 | :heavy_check_mark: | :heavy_check_mark: | 2 | :heavy_check_mark: (audio source buttons)
 Numark Stereo IO | :heavy_check_mark: | :heavy_check_mark: | 1 |
-Rane SL-1 | :heavy_check_mark: | :heavy_check_mark (soft. via xwax) | 2 | :heavy_check_mark: (need to find how to toggle, but both receive signal @ LINE level)
+Rane SL-1 | :heavy_check_mark: | :heavy_check_mark: (soft. via xwax) | 2 | :heavy_check_mark: (need to find how to toggle, but both receive signal @ LINE level)
 Reloop Digital Jockey 2 Interface Edition | :heavy_check_mark: | :heavy_check_mark: | 1 |
 Traktor Audio 4 | :heavy_check_mark: | :heavy_check_mark: | 2 |
 Traktor Audio 6 | :heavy_check_mark: | :heavy_check_mark: | 3 | :heavy_check_mark: (via amixer)
