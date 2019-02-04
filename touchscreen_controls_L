@@ -81,25 +81,9 @@ def load_button(event):
     fake_press_key("F1")
     fake_release_key("F1")
 
-def load2_button(event):
-    fake_press_key("F5")
-    fake_release_key("F5")
-
-def load3_button(event):
-    fake_press_key("F9")
-    fake_release_key("F9")
-
 def cue_button(event):
     fake_press_key("F2")
     fake_release_key("F2")
-
-def cue2_button(event):
-    fake_press_key("F6")
-    fake_release_key("F6")
-
-def cue3_button(event):
-    fake_press_key("F10")
-    fake_release_key("F11")
 
 def timecode_button(event):
     fake_press_key("F3")
