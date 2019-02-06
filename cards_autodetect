@@ -138,7 +138,7 @@ elif ( echo $CARDS_LINE_2 | grep -q "Hercules DJ Console Mk2" ) || ( echo $CARDS
        python /usr/share/pideck/touchscreen_controls_L --card twindeck &
        python /usr/share/pideck/touchscreen_controls_R --card twindeck &
 
-elif ( echo $CARDS_LINE_2 | grep -qi "USB Audio Codec" ) && ( echo $CARDS_LINE_1 | grep -qi "USB Audio Codec" ); then
+elif ( echo $CARDS_LINE_2 | grep -qi "USB Audio" ) && ( echo $CARDS_LINE_1 | grep -qi "USB Audio" ); then
        XCARD="-a hw:0 -a hw:1"
        python /usr/share/pideck/touchscreen_controls_L --card twindeck &
        python /usr/share/pideck/touchscreen_controls_R --card twindeck &
