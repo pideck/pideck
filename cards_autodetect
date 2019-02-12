@@ -162,10 +162,10 @@ fi
 #attempt to set output level of one or both sound cards to 100%
 
        echo -e "Setting output levels to maximum on first card:\n"
-       amixer -c 0 sset PCM 100%
+       amixer -c 0 sset PCM 100% | true
 
        echo -e "\nSetting output levels to maximum on second card:\n"
-       amixer -c 1 sset PCM 100%
+       amixer -c 1 sset PCM 100% | true
 
 #tell everyone what we found and what the latency will be like
 
