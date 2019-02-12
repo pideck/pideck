@@ -40,7 +40,6 @@ echo $CARDS_LINE_2
 echo $CARDS_LINE_3
 
 #detect supported cards while keeping track of detected cards with aux array
-
 XCARD_NUM=0
 i=0
 
@@ -71,10 +70,10 @@ echo -e "\nNumber of supported cards found: "$XCARD_NUM "\n"
 #if no supported cards found select first usb audio or default to first card with 8ms buffer
 if (($XCARD_NUM < 1)); then
 
-     if echo $CARDS_LINE_1 | grep -q "USB AUDIO"; then
+     if echo $CARDS_LINE_1 | grep -q "USB"; then
         CARD_NUM=`echo $CARDS_LINE_1 | grep -o "[0-9]" | head -1`
 
-      elif echo $CARDS_LINE_2 | grep -q "USB AUDIO"; then
+      elif echo $CARDS_LINE_2 | grep -q "USB"; then
         CARD_NUM=`echo $CARDS_LINE_2 | grep -o "[0-9]" | head -1`
 
       else
@@ -103,14 +102,12 @@ if (($XCARD_NUM > 1)); then
 fi
 
 #delete rest of arrays
-
 unset SUP
 unset BUFF
 unset XWAX_CARD
 unset PRESENT
 
 #space for dj soundcard conditionals
-
 if ( echo $CARDS_LINE_2 | grep -q "Native Instruments Audio 8 DJ" ) || ( echo $CARDS_LINE_1 | grep -q "Native Instruments Audio 8 DJ" ); then
        XCARD="-a plughw:Audio8DJ,0,0 -a plughw:Audio8DJ,0,1"
        python /usr/share/pideck/touchscreen_controls_L --card twindeck &
@@ -153,14 +150,14 @@ elif ( echo $CARDS_LINE_1 | grep -q "Rane" ) || ( echo $CARDS_LINE_1 | grep -q "
 	XCARD="-a hw:$CARD_NUM,0 -a hw:$CARD_NUM,1"
 	python /usr/share/pideck/touchscreen_controls_L --card ranesl1 &
 	python /usr/share/pideck/touchscreen_controls_R --card ranesl1 &
+
 else
+#fall back to generic touchscreen button configuration
        python /usr/share/pideck/touchscreen_controls_L &
        python /usr/share/pideck/touchscreen_controls_R &
-
 fi
 
 #attempt to set output level of one or both sound cards to 100%
-
        echo -e "Setting output levels to maximum on first card:\n"
        amixer -c 0 sset PCM 100% | true
 
@@ -168,11 +165,9 @@ fi
        amixer -c 1 sset PCM 100% | true
 
 #tell everyone what we found and what the latency will be like
-
        echo -e "\nUsing "$XCARD" with" $BUFFER"ms buffer\n"
 
 #check for dicer
-
 if ( echo $CARDS_LINE_3 | grep -q "Novation DMS Ltd Dicer" ) || ( echo $CARDS_LINE_2 | grep -q "Novation DMS Ltd Dicer" ) || ( echo $CARDS_LINE_1 | grep -q "Novation DMS Ltd Dicer" ); then
         DICER="--dicer hw:Dicer"
         echo -e "FOUND Novation Dicer\n"
