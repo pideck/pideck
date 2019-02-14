@@ -108,18 +108,18 @@ unset XWAX_CARD
 unset PRESENT
 
 #space for dj soundcard conditionals
-if ( echo $CARDS_LINE_2 | grep -q "Native Instruments Audio 8 DJ" ) || ( echo $CARDS_LINE_1 | grep -q "Native Instruments Audio 8 DJ" ); then
+if ( echo $CARDS_LINE_2 | grep -q "Audio 8 DJ" ) || ( echo $CARDS_LINE_1 | grep -q "Audio 8 DJ" ); then
        XCARD="-a plughw:Audio8DJ,0,0 -a plughw:Audio8DJ,0,1"
        python /usr/share/pideck/touchscreen_controls_L --card twindeck &
        python /usr/share/pideck/touchscreen_controls_R --card twindeck &
 
-elif ( echo $CARDS_LINE_2 | grep -q "Native Instruments Audio 6 DJ" ) || ( echo $CARDS_LINE_1 | grep -q "Native Instruments Audio 6 DJ" ); then
+elif ( echo $CARDS_LINE_2 | grep -q "Audio 6 DJ" ) || ( echo $CARDS_LINE_1 | grep -q "Audio 6 DJ" ); then
        XCARD="-a T6_pair1 -a T6_pair2"
        cp /usr/share/pideck/T6.asound.conf ~/.asoundrc
        python /usr/share/pideck/touchscreen_controls_L --card traktora6 &
        python /usr/share/pideck/touchscreen_controls_R --card traktora6 &
 
-elif ( echo $CARDS_LINE_2 | grep -q "Native Instruments Audio 4 DJ" ) || ( echo $CARDS_LINE_1 | grep -q "Native Instruments Audio 4 DJ" ); then
+elif ( echo $CARDS_LINE_2 | grep -q "Audio 4 DJ" ) || ( echo $CARDS_LINE_1 | grep -q "Audio 4 DJ" ); then
        XCARD="-a plughw:Audio4DJ,0,0 -a plughw:Audio4DJ,0,1"
        python /usr/share/pideck/touchscreen_controls_L --card twindeck &
        python /usr/share/pideck/touchscreen_controls_R --card twindeck &
