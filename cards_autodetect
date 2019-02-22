@@ -124,6 +124,11 @@ elif ( echo $CARDS_LINE_2 | grep -q "Audio 4 DJ" ) || ( echo $CARDS_LINE_1 | gre
        python /usr/share/pideck/touchscreen_controls_L --card twindeck &
        python /usr/share/pideck/touchscreen_controls_R --card twindeck &
 
+elif ( echo $CARDS_LINE_2 | grep -q "Conectiv" ) || ( echo $CARDS_LINE_1 | grep -q "Conectiv" ); then
+       XCARD="-a plughw:1,0,0 -a plughw:1,1,0"
+       python /usr/share/pideck/touchscreen_controls_L --card twindeck &
+       python /usr/share/pideck/touchscreen_controls_R --card twindeck &
+
 elif ( echo $CARDS_LINE_2 | grep -q "DIGITAL JOCKEY-INTERFACE" ) || ( echo $CARDS_LINE_1 | grep -q "DIGITAL JOCKEY-INTERFACE" ); then
        XCARD="-a plughw:JOCKEYINTERFACE"
        python /usr/share/pideck/touchscreen_controls_L &
@@ -144,9 +149,9 @@ elif ( echo $CARDS_LINE_2 | grep -q "audioinjector-pi-soundcard" ) || ( echo $CA
        python /usr/share/pideck/touchscreen_controls_L --card audioinjector &
        python /usr/share/pideck/touchscreen_controls_R --card audioinjector &
 
-elif ( echo $CARDS_LINE_1 | grep -q "Rane" ) || ( echo $CARDS_LINE_1 | grep -q "SL-1" ); then
+elif ( echo $CARDS_LINE_1 | grep -q "SL-1" ) || ( echo $CARDS_LINE_1 | grep -q "SL-1" ); then
    	BUFFER=4
-	SAMPLERATE="44100 --phono" 
+	SAMPLERATE="44100 --phono"
 	XCARD="-a hw:$CARD_NUM,0 -a hw:$CARD_NUM,1"
 	python /usr/share/pideck/touchscreen_controls_L --card ranesl1 &
 	python /usr/share/pideck/touchscreen_controls_R --card ranesl1 &
