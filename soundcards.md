@@ -17,7 +17,7 @@ If you play any analogue vinyl or regular CDs without timecode, you will benefit
 
 Soundcard | Line input | Phono input | Number of decks | Hardware bypass
 --------- | ---------- | ----------- | --------------- | ---------------
-American Audio Genie II / Citronic AC-1 USB / KAM USBH100 Mk II / MixVibes Easy REC / MixVibes U-RIP 22 | :heavy_check_mark: | :heavy_check_mark: | 1 |
+American Audio Genie II / Audiophony Converter / Citronic AC-1 USB / KAM USBH100 Mk II / MixVibes Easy REC / MixVibes U-RIP 22 | :heavy_check_mark: | :heavy_check_mark: | 1 |
 audioinjector.net stereo HAT | :heavy_check_mark: || 1 | :heavy_check_mark: (via amixer)
 Behringer UCA 202 / Behringer UCA 222 | :heavy_check_mark: || 1 |
 Behringer UFO 202 | :heavy_check_mark: | :heavy_check_mark: | 1 (with [hardware modification](https://mixxx.org/forums/viewtopic.php?t=2438)) |
