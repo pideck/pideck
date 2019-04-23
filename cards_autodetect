@@ -125,7 +125,8 @@ elif ( echo $CARDS_LINE_2 | grep -q "Audio 4 DJ" ) || ( echo $CARDS_LINE_1 | gre
        python /usr/share/pideck/touchscreen_controls_R --card twindeck &
 
 elif ( echo $CARDS_LINE_2 | grep -q "Conectiv" ) || ( echo $CARDS_LINE_1 | grep -q "Conectiv" ); then
-       XCARD="-a plughw:1,0,0 -a plughw:1,1,0"
+       SAMPLERATE="44100"
+       XCARD="-a hw:1,0 -a hw:1,1"
        python /usr/share/pideck/touchscreen_controls_L --card twindeck &
        python /usr/share/pideck/touchscreen_controls_R --card twindeck &
 
