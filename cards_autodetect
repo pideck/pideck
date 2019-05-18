@@ -150,7 +150,7 @@ elif ( echo $CARDS_LINE_2 | grep -q "audioinjector-pi-soundcard" ) || ( echo $CA
        python /usr/share/pideck/touchscreen_controls_L --card audioinjector &
        python /usr/share/pideck/touchscreen_controls_R --card audioinjector &
 
-elif ( echo $CARDS_LINE_1 | grep -q "SL-1" ) || ( echo $CARDS_LINE_1 | grep -q "SL-1" ); then
+elif ( echo $CARDS_LINE_2 | grep -q "SL-1" ) || ( echo $CARDS_LINE_1 | grep -q "SL-1" ); then
    	BUFFER=4
 	SAMPLERATE="44100 --phono"
 	XCARD="-a hw:$CARD_NUM,0 -a hw:$CARD_NUM,1"
