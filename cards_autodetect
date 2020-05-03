@@ -34,13 +34,12 @@ CARDS_LINE_1=`sed '1,2!d' /proc/asound/cards`
 CARDS_LINE_2=`sed '3,4!d' /proc/asound/cards`
 CARDS_LINE_3=`sed '5,6!d' /proc/asound/cards`
 
-echo "Available sound cards:"
+echo "Available sound cards and controllers:"
 echo $CARDS_LINE_1
 echo $CARDS_LINE_2
 echo $CARDS_LINE_3
 
 #detect supported cards while keeping track of detected cards with aux array
-
 XCARD_NUM=0
 i=0
 
@@ -71,10 +70,10 @@ echo -e "\nNumber of supported cards found: "$XCARD_NUM "\n"
 #if no supported cards found select first usb audio or default to first card with 8ms buffer
 if (($XCARD_NUM < 1)); then
 
-     if echo $CARDS_LINE_1 | grep -q "USB AUDIO"; then
+     if echo $CARDS_LINE_1 | grep -q "USB"; then
         CARD_NUM=`echo $CARDS_LINE_1 | grep -o "[0-9]" | head -1`
 
-      elif echo $CARDS_LINE_2 | grep -q "USB AUDIO"; then
+      elif echo $CARDS_LINE_2 | grep -q "USB"; then
         CARD_NUM=`echo $CARDS_LINE_2 | grep -o "[0-9]" | head -1`
 
       else
@@ -92,7 +91,7 @@ if (($XCARD_NUM > 1)); then
     for ((i=0; i<$j; i++)) do
         if ( echo "${PRESENT[$i]}" | grep -q "$(echo "${SUP[$i]}")"); then
            for ((k=0; k<$j; k++)) do
-              if (("${BUFF[$i]}" < "${BUFF[$k]}")) && (echo "${PRESENT[$k]}" | grep -q "$(echo "${SUP[$k]}")"); then 
+              if (("${BUFF[$i]}" < "${BUFF[$k]}")) && (echo "${PRESENT[$k]}" | grep -q "$(echo "${SUP[$k]}")"); then
                  XCARD="-a hw:"${XWAX_CARD[$i]}""
                  BUFFER="${BUFF[$i]}"
               fi
@@ -103,27 +102,31 @@ if (($XCARD_NUM > 1)); then
 fi
 
 #delete rest of arrays
-
 unset SUP
 unset BUFF
 unset XWAX_CARD
 unset PRESENT
 
 #space for dj soundcard conditionals
-
-if ( echo $CARDS_LINE_2 | grep -q "Native Instruments Audio 8 DJ" ) || ( echo $CARDS_LINE_1 | grep -q "Native Instruments Audio 8 DJ" ); then
+if ( echo $CARDS_LINE_2 | grep -q "Audio 8 DJ" ) || ( echo $CARDS_LINE_1 | grep -q "Audio 8 DJ" ); then
        XCARD="-a plughw:Audio8DJ,0,0 -a plughw:Audio8DJ,0,1"
        python /usr/share/pideck/touchscreen_controls_L --card twindeck &
        python /usr/share/pideck/touchscreen_controls_R --card twindeck &
 
-elif ( echo $CARDS_LINE_2 | grep -q "Native Instruments Audio 6 DJ" ) || ( echo $CARDS_LINE_1 | grep -q "Native Instruments Audio 6 DJ" ); then
+elif ( echo $CARDS_LINE_2 | grep -q "Audio 6 DJ" ) || ( echo $CARDS_LINE_1 | grep -q "Audio 6 DJ" ); then
        XCARD="-a T6_pair1 -a T6_pair2"
        cp /usr/share/pideck/T6.asound.conf ~/.asoundrc
        python /usr/share/pideck/touchscreen_controls_L --card traktora6 &
        python /usr/share/pideck/touchscreen_controls_R --card traktora6 &
 
-elif ( echo $CARDS_LINE_2 | grep -q "Native Instruments Audio 4 DJ" ) || ( echo $CARDS_LINE_1 | grep -q "Native Instruments Audio 4 DJ" ); then
+elif ( echo $CARDS_LINE_2 | grep -q "Audio 4 DJ" ) || ( echo $CARDS_LINE_1 | grep -q "Audio 4 DJ" ); then
        XCARD="-a plughw:Audio4DJ,0,0 -a plughw:Audio4DJ,0,1"
+       python /usr/share/pideck/touchscreen_controls_L --card twindeck &
+       python /usr/share/pideck/touchscreen_controls_R --card twindeck &
+
+elif ( echo $CARDS_LINE_2 | grep -q "Conectiv" ) || ( echo $CARDS_LINE_1 | grep -q "Conectiv" ); then
+       SAMPLERATE="44100"
+       XCARD="-a hw:1,0 -a hw:1,1"
        python /usr/share/pideck/touchscreen_controls_L --card twindeck &
        python /usr/share/pideck/touchscreen_controls_R --card twindeck &
 
@@ -135,11 +138,18 @@ elif ( echo $CARDS_LINE_2 | grep -q "DIGITAL JOCKEY-INTERFACE" ) || ( echo $CARD
 elif ( echo $CARDS_LINE_2 | grep -q "Hercules DJ Console Mk2" ) || ( echo $CARDS_LINE_1 | grep -q "Hercules DJ Console Mk2" ); then
        XCARD="-a Mk2_pair1 -a Mk2_pair2"
        cp /usr/share/pideck/Mk2.asound.conf ~/.asoundrc
-       echo -e "Setting output levels to maximum:\n"
-       amixer -c 1 sset PCM 181
        python /usr/share/pideck/touchscreen_controls_L --card twindeck &
        python /usr/share/pideck/touchscreen_controls_R --card twindeck &
 
+elif ( echo $CARDS_LINE_2 | grep -qi "USB Audio" ) && ( echo $CARDS_LINE_1 | grep -qi "USB Audio" ); then
+       XCARD="-a hw:0 -a hw:1"
+       python /usr/share/pideck/touchscreen_controls_L --card twindeck &
+       python /usr/share/pideck/touchscreen_controls_R --card twindeck &
+
+elif ( echo $CARDS_LINE_2 | grep -q "audioinjector-pi-soundcard" ) || ( echo $CARDS_LINE_1 | grep -q "audioinjector-pi-soundcard" ); then
+       python /usr/share/pideck/touchscreen_controls_L --card audioinjector &
+       python /usr/share/pideck/touchscreen_controls_R --card audioinjector &
+	   
 elif ( echo $CARDS_LINE_2 | grep -q "MixVibes U-MIX44" ) || ( echo $CARDS_LINE_1 | grep -q "MixVibes U-MIX44" ); then
        XCARD="-a umix44_pair1 -a umix44_pair2"
        cp /usr/share/pideck/umix44.asound.conf ~/.asoundrc
@@ -148,29 +158,32 @@ elif ( echo $CARDS_LINE_2 | grep -q "MixVibes U-MIX44" ) || ( echo $CARDS_LINE_1
        amixer -c Device set Speaker 31
        amixer -c Device set Line 7
        python /usr/share/pideck/touchscreen_controls_L --card twindeck &
-       python /usr/share/pideck/touchscreen_controls_R --card twindeck &
+       python /usr/share/pideck/touchscreen_controls_R --card twindeck &	  
 
-elif ( echo $CARDS_LINE_2 | grep -q "audioinjector-pi-soundcard" ) || ( echo $CARDS_LINE_1 | grep -q "audioinjector-pi-soundcard" ); then
-       python /usr/share/pideck/touchscreen_controls_L --card audioinjector &
-       python /usr/share/pideck/touchscreen_controls_R --card audioinjector &
+elif ( echo $CARDS_LINE_2 | grep -q "SL-1" ) || ( echo $CARDS_LINE_1 | grep -q "SL-1" ); then
+   	BUFFER=4
+	SAMPLERATE="44100 --phono"
+	XCARD="-a hw:$CARD_NUM,0 -a hw:$CARD_NUM,1"
+	python /usr/share/pideck/touchscreen_controls_L --card ranesl1 &
+	python /usr/share/pideck/touchscreen_controls_R --card ranesl1 &
 
 else
+#fall back to generic touchscreen button configuration
        python /usr/share/pideck/touchscreen_controls_L &
        python /usr/share/pideck/touchscreen_controls_R &
-
 fi
 
-#set output level of numark stereo io and similar cards to 100%
+#attempt to set output level of one or both sound cards to 100%
+       echo -e "Setting output levels to maximum on first card:\n"
+       amixer -c 0 sset PCM 100% | true
 
-if ( echo $CARDS_LINE_2 | grep -q "BurrBrown from Texas Instruments USB AUDIO  CODEC" ) || ( echo $CARDS_LINE_1 | grep -q "BurrBrown from Texas Instruments USB AUDIO  CODEC" ); then
-       echo -e "Setting output levels to maximum:\n"
-       amixer -c 1 sset PCM 64
-fi
+       echo -e "\nSetting output levels to maximum on second card:\n"
+       amixer -c 1 sset PCM 100% | true
 
-echo -e "\nUsing "$XCARD" with" $BUFFER"ms buffer\n"
+#tell everyone what we found and what the latency will be like
+       echo -e "\nUsing "$XCARD" with" $BUFFER"ms buffer\n"
 
 #check for dicer
-
 if ( echo $CARDS_LINE_3 | grep -q "Novation DMS Ltd Dicer" ) || ( echo $CARDS_LINE_2 | grep -q "Novation DMS Ltd Dicer" ) || ( echo $CARDS_LINE_1 | grep -q "Novation DMS Ltd Dicer" ); then
         DICER="--dicer hw:Dicer"
         echo -e "FOUND Novation Dicer\n"
