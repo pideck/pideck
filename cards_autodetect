@@ -149,6 +149,16 @@ elif ( echo $CARDS_LINE_2 | grep -qi "USB Audio" ) && ( echo $CARDS_LINE_1 | gre
 elif ( echo $CARDS_LINE_2 | grep -q "audioinjector-pi-soundcard" ) || ( echo $CARDS_LINE_1 | grep -q "audioinjector-pi-soundcard" ); then
        python /usr/share/pideck/touchscreen_controls_L --card audioinjector &
        python /usr/share/pideck/touchscreen_controls_R --card audioinjector &
+	   
+elif ( echo $CARDS_LINE_2 | grep -q "MixVibes U-MIX44" ) || ( echo $CARDS_LINE_1 | grep -q "MixVibes U-MIX44" ); then
+       XCARD="-a umix44_pair1 -a umix44_pair2"
+       cp /usr/share/pideck/umix44.asound.conf ~/.asoundrc
+       echo -e "Setting output levels to maximum:\n"
+       amixer -c Device set Headphone 31
+       amixer -c Device set Speaker 31
+       amixer -c Device set Line 7
+       python /usr/share/pideck/touchscreen_controls_L --card twindeck &
+       python /usr/share/pideck/touchscreen_controls_R --card twindeck &	  
 
 elif ( echo $CARDS_LINE_2 | grep -q "SL-1" ) || ( echo $CARDS_LINE_1 | grep -q "SL-1" ); then
    	BUFFER=4
