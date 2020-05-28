@@ -73,6 +73,7 @@ American Audio VMS4 | Buggy audio and distortion
 Art USB Phono Plus | USB output to analogue on headphone jack only
 ESI Gigaport HD/HD+ | No suitable inputs
 Ion Record 2 PC | No suitable outputs from USB
+Kaiser Baas Vinyl Converter | Monitor output on headphone jack only
 NAD PP4 | No suitable outputs from USB
 Numark DJ iO | No suitable inputs
 Numark DJ iO 2 | No suitable inputs
