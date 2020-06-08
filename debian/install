@@ -16,3 +16,4 @@ soundcard-setup.service etc/systemd/system
 touchscreen_controls_L usr/share/pideck
 touchscreen_controls_R usr/share/pideck
 xwax_rescan usr/share/pideck
+99-xone.rules etc/udev/rules.d
