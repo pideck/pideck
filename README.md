@@ -17,6 +17,12 @@ Build the package using:
 dpkg-buildpackage -aarmhf -uc -us -b
 ```
 
+Alternatively, if `docker` is installed:
+
+```sh
+make -Bf docker.Makefile
+```
+
 Please see [Soundcard status](soundcards.md) for tips on which soundcard(s) to use with your PiDeck. Your help confirming which soundcards work for you would be appreciated.
 
 For keyboard shortcuts please see [Keyboard control](keyboard_control.md).

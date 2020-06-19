@@ -60,3 +60,8 @@ else
      echo -e "\nNow we are ready to start xwax:\n"
      xwax -i $IMPORT -s $SCAN -k -q 89 -g 630x480 --no-decor $DICER -m $BUFFER -r $SAMPLERATE $XCARD $LIBRARY &
 fi
+
+# start server for remote control
+if ! ss -tulpn | grep -q :8080; then
+    /usr/share/pideck/track-upload &
+fi

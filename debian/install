@@ -15,4 +15,5 @@ sup_cards.conf usr/share/pideck
 soundcard-setup.service etc/systemd/system
 touchscreen_controls_L usr/share/pideck
 touchscreen_controls_R usr/share/pideck
+track-upload usr/share/pideck
 xwax_rescan usr/share/pideck

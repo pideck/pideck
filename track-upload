@@ -1,0 +1,66 @@
+#!/usr/bin/env python
+
+import cgi
+import tempfile
+import traceback
+from os import curdir, sep, chmod
+from subprocess import call
+from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
+
+class TrackUpload(BaseHTTPRequestHandler):
+    def do_GET(self):
+        if self.path == '/':
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+            self.wfile.write('''<html>
+  <body>
+    <form method="POST" enctype="multipart/form-data" action="http://127.0.0.1/">
+      <label for="track">Select a file:</label>
+      <input type="file" name="track" id="track"/>
+      <input type="submit" value="Upload"/>
+    </form>
+  </body>
+</html>''')
+            return
+        else:
+            self.send_error(404)
+    def do_POST(self):
+        try:
+            ctype, pdict = cgi.parse_header(self.headers.getheader('content-type'))
+            if ctype == 'multipart/form-data':
+                query = cgi.parse_multipart(self.rfile, pdict)
+            data = query.get('track')[0]
+            if not data:
+                self.send_error(400, 'No file selected!');
+            else:
+                f = tempfile.NamedTemporaryFile('w', delete=False)
+                print 'Saving track to ' + f.name
+                f.write(data)
+                f.close()
+                chmod(f.name, 0o644)
+                print 'Calling xwax-client'
+                command = ['xwax-client', 'localhost', 'load_track', '0', f.name, 'some artist', 'some track']
+                print command
+                call(command)
+                self.send_response(301)
+                self.end_headers()
+                self.wfile.write('<html>Track was loaded!</html>');
+        except:
+            traceback.print_exc()
+            self.send_error(500, 'Something went wrong...');
+
+def main():
+    try:
+        print 'Starting HTTP server for uploading tracks...'
+        # need sudo to bind to port 80
+        port = 8080
+        server = HTTPServer(('', port), TrackUpload)
+        print 'Server up. Listening on http://localhost' + ('' if port == 80  else ':' + str(port))
+        server.serve_forever()
+    except KeyboardInterrupt:
+        print 'Shutting down server...'
+        server.socket.close()
+
+if __name__ == '__main__':
+    main()
