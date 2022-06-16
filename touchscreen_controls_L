@@ -139,17 +139,17 @@ def make_window():
     box = gtk.VButtonBox()
 
     btn = gtk.Button("LOAD")
-    btn.connect("clicked", load_button)
+    btn.connect("pressed", load_button)
     btn.set_size_request(50, 68)
     box.add(btn)
 
     btn = gtk.Button("CUE")
-    btn.connect("clicked", cue_button)
+    btn.connect("pressed", cue_button)
     btn.set_size_request(50, 68)
     box.add(btn)
 
     btn = gtk.Button("TIMECD")
-    btn.connect("clicked", timecode_button)
+    btn.connect("pressed", timecode_button)
     btn.set_size_request(50, 68)
     box.add(btn)
 
@@ -188,12 +188,12 @@ def make_window():
 
     if results.card == 'traktora6' or results.card == 'twindeck' or results.card == 'ranesl1':
         btn = gtk.Button("SORT")
-        btn.connect("clicked", sort_button)
+        btn.connect("pressed", sort_button)
         btn.set_size_request(50, 68)
         box.add(btn)
 
         btn = gtk.Button("RESCAN")
-        btn.connect("clicked", rescan_button)
+        btn.connect("pressed", rescan_button)
         btn.set_size_request(50, 68)
         box.add(btn)
 

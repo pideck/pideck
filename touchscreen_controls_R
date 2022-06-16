@@ -146,17 +146,17 @@ def make_window():
 
     if results.card == 'traktora6' or results.card == 'twindeck' or results.card == 'ranesl1':
         btn = gtk.Button("LOAD")
-        btn.connect("clicked", load_button)
+        btn.connect("pressed", load_button)
         btn.set_size_request(50, 68)
         box.add(btn)
 
         btn = gtk.Button("CUE")
-        btn.connect("clicked", cue_button)
+        btn.connect("pressed", cue_button)
         btn.set_size_request(50, 68)
         box.add(btn)
 
         btn = gtk.Button("TIMECD")
-        btn.connect("clicked", timecode_button)
+        btn.connect("pressed", timecode_button)
         btn.set_size_request(50, 68)
         box.add(btn)
 
@@ -182,32 +182,32 @@ def make_window():
         box.add(btn)
 
     btn = gtk.Button("PG UP")
-    btn.connect("clicked", pageup_button)
+    btn.connect("pressed", pageup_button)
     btn.set_size_request(50, 68)
     box.add(btn)
 
     btn = gtk.Button("UP")
-    btn.connect("clicked", up_button)
+    btn.connect("pressed", up_button)
     btn.set_size_request(50, 68)
     box.add(btn)
 
     btn = gtk.Button("DOWN")
-    btn.connect("clicked", down_button)
+    btn.connect("pressed", down_button)
     btn.set_size_request(50, 68)
     box.add(btn)
 
     btn = gtk.Button("PG DOWN")
-    btn.connect("clicked", pagedown_button)
+    btn.connect("pressed", pagedown_button)
     box.add(btn)
 
     if results.card != 'traktora6' and results.card != 'twindeck' and results.card != 'ranesl1':
         btn = gtk.Button("SORT")
-        btn.connect("clicked", sort_button)
+        btn.connect("pressed", sort_button)
         btn.set_size_request(50, 68)
         box.add(btn)
 
         btn = gtk.Button("RESCAN")
-        btn.connect("clicked", rescan_button)
+        btn.connect("pressed", rescan_button)
         btn.set_size_request(50, 68)
         box.add(btn)
 
