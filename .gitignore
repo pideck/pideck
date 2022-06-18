@@ -1,3 +1,5 @@
-debian/.debhelper
-debian/files
-debian/pideck*
+/debian/.debhelper
+/debian/files
+/debian/pideck*
+/pideck_*.deb
+/debian/debhelper-build-stamp
