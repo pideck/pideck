@@ -101,8 +101,10 @@ def traktora6_bypass_button(widget, data):
     else:
        os.system("amixer -c T6 cset numid=2 off")
 
-def up_button(event):
+def up_button_press(event):
     fake_press_key("Up")
+
+def up_button_release(event):
     fake_release_key("Up")
 
 def pageup_button(event):
@@ -111,6 +113,12 @@ def pageup_button(event):
 
 def down_button(event):
     fake_press_key("Down")
+    fake_release_key("Down")
+
+def down_button_press(event):
+    fake_press_key("Down")
+
+def down_button_release(event):
     fake_release_key("Down")
 
 def pagedown_button(event):
@@ -187,12 +195,14 @@ def make_window():
     box.add(btn)
 
     btn = gtk.Button("UP")
-    btn.connect("clicked", up_button)
+    btn.connect("pressed", up_button_press)
+    btn.connect("released", up_button_release)
     btn.set_size_request(50, 68)
     box.add(btn)
 
     btn = gtk.Button("DOWN")
-    btn.connect("clicked", down_button)
+    btn.connect("pressed", down_button_press)
+    btn.connect("released", down_button_release)
     btn.set_size_request(50, 68)
     box.add(btn)
 
